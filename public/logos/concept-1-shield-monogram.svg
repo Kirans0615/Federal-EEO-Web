@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" fill="none">
+  <!-- Concept 1: FE monogram inside shield -->
+  <title>Federal EEO, LLC — Shield Monogram (Concept 1)</title>
+
+  <!-- Shield shape -->
+  <path d="M100 8 L188 40 L188 130 Q188 190 100 228 Q12 190 12 130 L12 40 Z"
+        fill="#1B2A4A" stroke="#C4922A" stroke-width="3"/>
+
+  <!-- Gold accent top bar inside shield -->
+  <rect x="48" y="58" width="104" height="2" fill="#C4922A" rx="1"/>
+  <rect x="48" y="180" width="104" height="2" fill="#C4922A" rx="1"/>
+
+  <!-- FE letterform -->
+  <!-- F -->
+  <text x="52" y="152" font-family="Georgia, serif" font-size="74" font-weight="600"
+        fill="#FFFFFF" letter-spacing="-4">F</text>
+  <!-- E -->
+  <text x="110" y="152" font-family="Georgia, serif" font-size="74" font-weight="600"
+        fill="#C4922A" letter-spacing="-4">E</text>
+</svg>

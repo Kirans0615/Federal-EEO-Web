@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npx tsc --noEmit --skipLibCheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build (Vercel/production mode)
+        run: npm run build
+        env:
+          # Dummy values let the build succeed without real services connected.
+          # Postgres and Resend are lazy-imported in API routes and never called at build time.
+          POSTGRES_URL: "postgresql://ci:ci@localhost:5432/ci"
+          RESEND_API_KEY: "re_ci_dummy"
+          CAL_SCHEDULING_LINK: "https://cal.com/federal-eeo"

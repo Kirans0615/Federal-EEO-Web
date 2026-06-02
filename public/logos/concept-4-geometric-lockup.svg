@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" fill="none">
+  <!-- Concept 4: Abstract F+E geometric negative-space mark + wordmark horizontal lockup -->
+  <title>Federal EEO, LLC — Geometric Lockup (Concept 4)</title>
+
+  <!-- Mark: interlocking F and E in negative space -->
+  <!-- Outer rectangle - navy -->
+  <rect x="4" y="4" width="66" height="72" rx="4" fill="#1B2A4A"/>
+
+  <!-- F bars cut out (negative space = cream) -->
+  <rect x="16" y="16" width="42" height="7" rx="2" fill="#C4922A"/>
+  <rect x="16" y="30" width="30" height="7" rx="2" fill="#C4922A"/>
+  <rect x="16" y="44" width="6"  height="26" rx="2" fill="#C4922A"/>
+
+  <!-- E bars — bottom half -->
+  <rect x="30" y="44" width="28" height="6"  rx="2" fill="#F4EFE6"/>
+  <rect x="30" y="56" width="20" height="6"  rx="2" fill="#F4EFE6"/>
+  <rect x="30" y="44" width="5"  height="18" rx="2" fill="#F4EFE6"/>
+
+  <!-- Gold accent dot -->
+  <circle cx="59" cy="68" r="4" fill="#C4922A"/>
+
+  <!-- Wordmark -->
+  <text x="86" y="36" font-family="Georgia, serif" font-size="22" font-weight="600"
+        fill="#1B2A4A" font-variant="small-caps">Federal EEO, LLC</text>
+  <text x="87" y="52" font-family="Arial, sans-serif" font-size="9" fill="#6B7280"
+        letter-spacing="2.2">CONSULTANTS &amp; ADVOCATES</text>
+
+  <!-- Thin gold rule -->
+  <line x1="86" y1="59" x2="295" y2="59" stroke="#C4922A" stroke-width="1"/>
+</svg>
