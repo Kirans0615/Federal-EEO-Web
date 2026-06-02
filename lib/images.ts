@@ -29,34 +29,34 @@
 
 export const images = {
   heroBackground: {
-    src:     "/images/washington-overlook.jpg",
+    src:     "public/images/washington-overlook.jpg",
     alt:     "Panoramic view of the Washington DC cityscape and National Mall at dusk, seen from an elevated overlook",
     blurKey: "washingtonOverlook" as const,
   },
   aboutHero: {
-    src:     "/images/lincoln-memorial.jpg",
+    src:     "public/images/lincoln-memorial.jpg",
     alt:     "Lincoln Memorial colonnade and marble steps, Washington DC",
     blurKey: "lincolnMemorial" as const,
   },
   servicesBackground: {
-    src:     "/images/washington-bridge.jpg",
+    src:     "public/images/washington-bridge.jpg",
     alt:     "Washington DC bridge spanning the Potomac River, reflecting federal architecture",
     blurKey: "washingtonBridge" as const,
   },
   missionBackground: {
-    src:     "/images/washington-bridge.jpg",
+    src:     "public/images/washington-bridge.jpg",
     alt:     "",
     blurKey: "washingtonBridge" as const,
     // Rendered grayscale at 12% opacity with white/90 overlay
   },
   contactSidebar: {
-    src:     "/images/washington-monument.jpg",
+    src:     "public/images/washington-monument.jpg",
     alt:     "Washington Monument obelisk rising against the open sky, Washington DC",
     blurKey: "washingtonMonument" as const,
   },
   erickaHeadshot: {
-    src:      "/images/ericka-dorsey.avif",
-    fallback: "/images/ericka-dorsey.jpg",
+    src:      "public/images/ericka-dorsey.avif",
+    fallback: "public/images/ericka-dorsey.jpg",
     alt:      "Ericka Guthrie Dorsey, Esq., Founder and Principal Consultant of Federal EEO, LLC",
     width:    634,
     height:   792,
