@@ -20,14 +20,14 @@ export function MissionReveal() {
       {/* Background: Washington bridge at 12% grayscale */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/washingtonbridge.jpg"
-          alt="Washington DC bridge at dusk, architectural detail"
+          src="/images/washington-bridge.jpg"
+          alt=""
           fill
           className="object-cover object-center grayscale"
           style={{ opacity: 0.12 }}
           sizes="100vw"
           placeholder="blur"
-          blurDataURL={blurData.washingtonbridge}
+          blurDataURL={blurData.washingtonBridge}
           quality={60}
         />
         <div className="absolute inset-0 bg-white/90" aria-hidden="true" />

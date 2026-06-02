@@ -41,15 +41,15 @@ export function Hero() {
       {/* Full-bleed background image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/washingtonoverlook.jpg"
-          alt="View of the Washington Monument and National Mall at dusk, Washington DC"
+          src="/images/washington-overlook.jpg"
+          alt="Panoramic view of the Washington DC cityscape and National Mall at dusk, seen from an elevated overlook"
           fill
           priority
           fetchPriority="high"
           className="object-cover object-center"
           sizes="100vw"
           placeholder="blur"
-          blurDataURL={blurData.washingtonoverlook}
+          blurDataURL={blurData.washingtonOverlook}
           quality={85}
         />
         {/* Vertical gradient overlay: navy 75% top → 40% mid → 90% bottom */}

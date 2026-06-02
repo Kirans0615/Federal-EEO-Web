@@ -8,12 +8,12 @@ export default function NotFound() {
       {/* Lincoln Memorial background */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/lincolnmonument.jpg"
-          alt="Lincoln Memorial, Washington DC"
+          src="/images/lincoln-memorial.jpg"
+          alt="Lincoln Memorial colonnade, Washington DC"
           fill
           className="object-cover object-center grayscale"
           placeholder="blur"
-          blurDataURL={blurData.lincolnmonument}
+          blurDataURL={blurData.lincolnMemorial}
           quality={70}
           priority
         />

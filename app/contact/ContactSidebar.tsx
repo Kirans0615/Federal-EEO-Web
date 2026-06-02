@@ -15,13 +15,13 @@ export function ContactSidebar() {
         style={{ height: "130%" }}
       >
         <Image
-          src="/images/washingtonpencil.jpg"
-          alt="Washington Monument obelisk against clear sky, Washington DC"
+          src="/images/washington-monument.jpg"
+          alt="Washington Monument obelisk rising against the open sky, Washington DC"
           fill
           className="object-cover object-center"
           sizes="40vw"
           placeholder="blur"
-          blurDataURL={blurData.washingtonpencil}
+          blurDataURL={blurData.washingtonMonument}
           quality={85}
           priority
         />

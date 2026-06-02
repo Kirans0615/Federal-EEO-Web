@@ -1,5 +1,7 @@
 # Federal EEO, LLC — Content Review Checklist
 
+**All visual assets in place as of 2026-06-02. No outstanding image blockers.**
+
 Everything in this file needs Ericka Guthrie Dorsey's review before launch.
 Mark each item ✅ when complete.
 
@@ -9,7 +11,7 @@ Mark each item ✅ when complete.
 
 - [ ] **Phone number** — Add to `/app/contact/page.tsx` (marked `[Phone — see CONTENT.md]`) and Footer
 - [ ] **Physical address** — Add full DC office address to Footer and contact page sidebar
-- [ ] **Professional headshot** — Replace placeholder in `/app/about/AboutContent.tsx` with actual photo
+- ✅ **Professional headshot** — Real AVIF headshot in place at `/public/images/ericka-dorsey.avif` with JPEG fallback at `/public/images/ericka-dorsey.jpg`. Confirm Ericka approves this specific photo for commercial use.
 - [ ] **Attorney disclaimer language** — Confirm the verbatim disclaimer is correct and approved
 - [ ] **DC Bar number / license info** — Add to Footer or About page if desired for credibility
 
@@ -111,17 +113,25 @@ For launch, Ericka should provide:
 
 Screenshots saved to `/public/screenshots/`. Review all at desktop and mobile.
 
-### Images Needing Ericka's Approval
-- [ ] **Ericka Headshot** (`/public/images/ericka-headshot.avif`) — confirm this is the preferred professional photo
-- [ ] **Washington Overlook** (`/public/images/washingtonoverlook.jpg`) — homepage hero, confirm usage rights
-- [ ] **Lincoln Memorial** (`/public/images/lincolnmonument.jpg`) — About page hero and About accordion panel
-- [ ] **Washington Bridge** (`/public/images/washingtonbridge.jpg`) — Services hero and mission section background
-- [ ] **Washington Pencil** (`/public/images/washingtonpencil.jpg`) — Contact page vertical hero (showing cherry blossoms + monument at dusk)
+### Images — Status
 
-### Photography Usage Rights
-All 5 images were provided by the client via the GitHub repo. Confirm with Ericka that:
-- [ ] She owns or has licensed all photos
-- [ ] Usage rights permit commercial use on the firm's website
+All five photographs fetched from the GitHub repository and live in `/public/images/` with normalized filenames:
+
+| File | Role | Status |
+|---|---|---|
+| `ericka-dorsey.avif` + `ericka-dorsey.jpg` | Attorney headshot — About page | ✅ In place |
+| `washington-overlook.jpg` | Homepage hero full-bleed | ✅ In place |
+| `lincoln-memorial.jpg` | About page hero + accordion | ✅ In place |
+| `washington-bridge.jpg` | Services hero + Mission background | ✅ In place |
+| `washington-monument.jpg` | Contact page sidebar vertical pan | ✅ In place |
+
+### Photography Usage Rights (still required)
+All 5 images were provided by Ericka via the GitHub repo. Before launch, confirm:
+- [ ] Ericka owns or has a valid commercial license for each of the four DC scenic photographs
+- [ ] The headshot may be used commercially on the firm's website
+- [ ] Usage rights permit reproduction in screenshots, OG images, and social media previews
+
+See `/public/images/CREDITS.md` for the full record.
 
 ### Copy That Must Change Before Launch
 See PRIORITY sections above. Critical blockers:
@@ -129,7 +139,7 @@ See PRIORITY sections above. Critical blockers:
 2. Phone number (placeholder in contact page)
 3. Physical DC office address (in Footer and Contact sidebar)
 4. Real testimonials with signed releases
-5. Ericka's headshot approval (already live — but she should confirm this specific photo)
+5. Confirm photography usage rights (checklist above)
 
 ### Cal.com Appearance Settings
 After setup, configure Cal.com appearance to match brand:

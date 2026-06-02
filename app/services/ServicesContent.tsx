@@ -88,14 +88,14 @@ export function ServicesContent() {
       <section className="relative h-[55vh] flex items-end overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/washingtonbridge.jpg"
-            alt="Washington DC bridge reflecting federal architecture and the city skyline"
+            src="/images/washington-bridge.jpg"
+            alt="Washington DC bridge spanning the Potomac River, reflecting federal architecture"
             fill
             priority
             className="object-cover object-center"
             sizes="100vw"
             placeholder="blur"
-            blurDataURL={blurData.washingtonbridge}
+            blurDataURL={blurData.washingtonBridge}
             quality={85}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/40 to-brand-navy/25" aria-hidden="true" />

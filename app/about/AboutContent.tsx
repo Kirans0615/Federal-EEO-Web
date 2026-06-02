@@ -30,14 +30,14 @@ export function AboutContent() {
       <section className="relative h-[60vh] flex items-end overflow-hidden" aria-label="About page hero">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/lincolnmonument.jpg"
-            alt="Lincoln Memorial columns and steps, Washington DC"
+            src="/images/lincoln-memorial.jpg"
+            alt="Lincoln Memorial colonnade and marble steps, Washington DC"
             fill
             priority
             className="object-cover object-center"
             sizes="100vw"
             placeholder="blur"
-            blurDataURL={blurData.lincolnmonument}
+            blurDataURL={blurData.lincolnMemorial}
             quality={85}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/40 to-brand-navy/20" aria-hidden="true" />
@@ -78,14 +78,14 @@ export function AboutContent() {
                 />
                 <div className="relative rounded-2xl overflow-hidden border-2 border-brand-gold/40">
                   <Image
-                    src="/images/ericka-headshot.avif"
+                    src="/images/ericka-dorsey.avif"
                     alt="Ericka Guthrie Dorsey, Esq., Founder and Principal Consultant of Federal EEO, LLC"
-                    width={480}
-                    height={600}
+                    width={634}
+                    height={792}
                     className="object-cover object-top w-full"
-                    style={{ aspectRatio: "4/5" }}
+                    sizes="(max-width: 768px) 100vw, 480px"
                     placeholder="blur"
-                    blurDataURL={blurData.erickaheadshot}
+                    blurDataURL={blurData.erickaHeadshot}
                     quality={90}
                     priority
                   />
