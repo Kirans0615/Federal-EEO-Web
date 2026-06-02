@@ -89,6 +89,22 @@ For launch, Ericka should provide:
 - [ ] At minimum one completed guide (recommend: "The 45-Day Rule Explained" — highest traffic intent)
 - [ ] PDF download files to place in `/public/guides/`
 
+### Featured Resources Section (Homepage)
+
+Three editorial article cards appear on the homepage via `/components/sections/FeaturedResources.tsx`.
+**All three titles and excerpts are placeholder copy pending Ericka's review:**
+
+| # | Placeholder Title | Placeholder Excerpt |
+|---|---|---|
+| 1 | "The 45-Day Clock: What Federal Employees Must Know" | About the critical deadline, when it starts, and what counts as "contact" with an EEO counselor. |
+| 2 | "Reasonable Accommodation: Your Rights Under the Rehabilitation Act" | About what agencies are required to do, what employees can request, and how to document denials. |
+| 3 | "Reading Your Report of Investigation: A Strategic Guide" | About what the ROI contains, what a weak agency case looks like, and how to use it in a hearing. |
+
+Before launch:
+- [ ] Ericka reviews and approves or revises all three titles
+- [ ] Ericka reviews and approves or revises all three excerpt paragraphs
+- [ ] Confirm these articles will be published on the Resources page (or update links accordingly)
+
 ---
 
 ## PRIORITY 8 — Cal.com Event Details

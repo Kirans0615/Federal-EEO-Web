@@ -197,4 +197,71 @@
       transform: none !important;
     }
   }
+
+  /* ——— Elegant bottom-border inputs (form refinements) ——— */
+  .input-editorial {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #D4C9B8 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    transition: border-color 200ms ease, box-shadow 200ms ease !important;
+    height: 52px !important;
+    padding: 0 2px !important;
+  }
+  .input-editorial:focus {
+    border-bottom-color: #C4922A !important;
+    box-shadow: 0 1px 0 0 rgba(196, 146, 42, 0.35) !important;
+    outline: none !important;
+  }
+  .input-editorial::placeholder {
+    font-family: var(--font-serif, Georgia, serif);
+    font-style: italic;
+    color: #6B7280;
+    opacity: 0.7;
+  }
+  .label-editorial {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #1B2A4A;
+    margin-bottom: 0.5rem;
+    display: block;
+    font-family: var(--font-sans, Inter, sans-serif);
+  }
+  .helper-editorial {
+    font-size: 0.8125rem;
+    color: #6B7280;
+    margin-top: 0.25rem;
+    font-family: var(--font-sans, Inter, sans-serif);
+  }
+  .error-editorial {
+    font-size: 0.8125rem;
+    color: #dc2626;
+    margin-top: 0.25rem;
+    font-family: var(--font-sans, Inter, sans-serif);
+  }
+}
+
+@media print {
+  header, footer, [aria-label="Page sections"] {
+    display: none !important;
+  }
+  body::after { display: none !important; }
+  body { background: white !important; color: black !important; font-size: 11pt; }
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #555;
+    font-style: italic;
+  }
+  a[href^="#"]::after,
+  a[href^="tel:"]::after,
+  a[href^="mailto:"]::after { content: ""; }
+  * { box-shadow: none !important; }
+  h1, h2, h3 { color: #1B2A4A !important; page-break-after: avoid; }
+  p { orphans: 3; widows: 3; }
+  @page { margin: 1.5cm 2cm; }
 }

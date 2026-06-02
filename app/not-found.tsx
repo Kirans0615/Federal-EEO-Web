@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FileSearch } from "lucide-react";
 import blurData from "@/lib/blur-data.json";
 
 export default function NotFound() {
@@ -21,6 +22,9 @@ export default function NotFound() {
       </div>
 
       <div className="relative z-10 text-center px-6 max-w-lg mx-auto">
+        <div className="flex justify-center mb-6">
+          <FileSearch size={48} className="text-brand-gold" aria-hidden="true" />
+        </div>
         <p className="font-sans text-brand-gold text-[0.7rem] tracking-[0.2em] uppercase mb-4">
           Error 404
         </p>

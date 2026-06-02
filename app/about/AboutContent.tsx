@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { Scale, FileSearch, ShieldCheck, BarChart3 } from "lucide-react";
 import { EASE, staggerContainer, fadeUp } from "@/lib/motion";
 import { ConsultationCTA } from "@/components/sections/ConsultationCTA";
@@ -22,6 +23,67 @@ const PRACTICE_AREAS = [
   { icon: ShieldCheck, title: "Title VII & Rehabilitation Act",         desc: "Expert application of federal anti-discrimination law across race, sex, disability, age, religion, and reprisal." },
   { icon: BarChart3,   title: "Strategic Evidence Positioning",         desc: "Identifying and presenting the evidence that matters most to an administrative judge — before and during the hearing." },
 ];
+
+function HeadshotReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+  const prefersReduced = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start center"],
+  });
+
+  const opacity    = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
+  const translateY = useTransform(scrollYProgress, [0, 0.6], [40, 0]);
+
+  return (
+    <motion.div
+      ref={ref}
+      style={prefersReduced ? {} : { opacity, y: translateY }}
+      className="lg:col-span-4"
+    >
+      <div className="relative">
+        <div
+          className="absolute -bottom-3 -right-3 w-full h-full rounded-2xl border border-brand-gold/50"
+          style={{ boxShadow: "0 24px 48px rgba(27,42,74,0.15)" }}
+          aria-hidden="true"
+        />
+        <div className="relative rounded-2xl overflow-hidden border-2 border-brand-gold/40">
+          <Image
+            src="/images/ericka-dorsey.avif"
+            alt="Ericka Guthrie Dorsey, Esq., Founder and Principal Consultant of Federal EEO, LLC"
+            width={634}
+            height={792}
+            className="object-cover object-top w-full"
+            sizes="(max-width: 768px) 100vw, 480px"
+            placeholder="blur"
+            blurDataURL={blurData.erickaHeadshot}
+            quality={90}
+            priority
+          />
+        </div>
+      </div>
+
+      <div className="mt-8 bg-white border border-brand-border rounded-sm p-5">
+        <p className="eyebrow mb-4">Credentials</p>
+        <ul className="space-y-2.5">
+          {[
+            "B.A., University of Pennsylvania",
+            "J.D., The George Washington University Law School",
+            "Licensed Attorney",
+            "Certified Mediator",
+            "Commissioner, ABA Commission on Disability Rights",
+          ].map((c) => (
+            <li key={c} className="flex items-start gap-2.5">
+              <span className="mt-2 w-1.5 h-1.5 rounded-full bg-brand-gold shrink-0" aria-hidden="true" />
+              <span className="font-sans text-sm text-brand-ink leading-snug">{c}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </motion.div>
+  );
+}
 
 export function AboutContent() {
   return (
@@ -61,56 +123,8 @@ export function AboutContent() {
         <div className="container-wide">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
 
-            {/* Headshot — the primary trust signal */}
-            <motion.div
-              initial={{ opacity: 0, x: -28 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: EASE }}
-              className="lg:col-span-4"
-            >
-              <div className="relative">
-                {/* Gold offset shadow box */}
-                <div
-                  className="absolute -bottom-3 -right-3 w-full h-full rounded-2xl border border-brand-gold/50"
-                  style={{ boxShadow: "0 24px 48px rgba(27,42,74,0.15)" }}
-                  aria-hidden="true"
-                />
-                <div className="relative rounded-2xl overflow-hidden border-2 border-brand-gold/40">
-                  <Image
-                    src="/images/ericka-dorsey.avif"
-                    alt="Ericka Guthrie Dorsey, Esq., Founder and Principal Consultant of Federal EEO, LLC"
-                    width={634}
-                    height={792}
-                    className="object-cover object-top w-full"
-                    sizes="(max-width: 768px) 100vw, 480px"
-                    placeholder="blur"
-                    blurDataURL={blurData.erickaHeadshot}
-                    quality={90}
-                    priority
-                  />
-                </div>
-              </div>
-
-              {/* Credentials card */}
-              <div className="mt-8 bg-white border border-brand-border rounded-sm p-5">
-                <p className="eyebrow mb-4">Credentials</p>
-                <ul className="space-y-2.5">
-                  {[
-                    "B.A., University of Pennsylvania",
-                    "J.D., The George Washington University Law School",
-                    "Licensed Attorney",
-                    "Certified Mediator",
-                    "Commissioner, ABA Commission on Disability Rights",
-                  ].map((c) => (
-                    <li key={c} className="flex items-start gap-2.5">
-                      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-brand-gold shrink-0" aria-hidden="true" />
-                      <span className="font-sans text-sm text-brand-ink leading-snug">{c}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
+            {/* Headshot — scroll-linked reveal */}
+            <HeadshotReveal />
 
             {/* Biography */}
             <motion.div

@@ -5,6 +5,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { EASE, staggerContainer, fadeUp } from "@/lib/motion";
 import { ConsultationCTA } from "@/components/sections/ConsultationCTA";
+import { ProcessReveal } from "@/components/sections/ProcessReveal";
+import { PullQuote } from "@/components/ui/PullQuote";
 import { Check } from "lucide-react";
 import blurData from "@/lib/blur-data.json";
 
@@ -113,6 +115,20 @@ export function ServicesContent() {
           </motion.div>
         </div>
       </section>
+
+      {/* Opening pull quote */}
+      <section className="bg-white px-6 md:px-12 py-20 md:py-28">
+        <div className="max-w-3xl mx-auto">
+          <PullQuote
+            quote="Successfully navigating the federal EEO process requires precision, strategy, and experience."
+            name="Ericka Guthrie Dorsey, Esq."
+            role="Founder, Federal EEO, LLC"
+          />
+        </div>
+      </section>
+
+      {/* Process stepper */}
+      <ProcessReveal />
 
       {/* Consultation */}
       <section id="consultation" className="bg-[#FAF8F3] section-padding scroll-mt-16">

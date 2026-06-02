@@ -3,6 +3,8 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
+import { LoadingBar } from "@/components/ui/LoadingBar";
 import { Inter, Source_Serif_4 } from "next/font/google";
 import { cn } from "@/lib/utils";
 
@@ -62,6 +64,8 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+        <CursorSpotlight />
+        <LoadingBar />
         <ScrollProgress />
         <Navbar />
         <main id="main-content">{children}</main>

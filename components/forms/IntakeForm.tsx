@@ -20,7 +20,7 @@ const STEP_LABELS: Record<Step, string> = {
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
   return (
-    <p role="alert" className="mt-1 text-xs text-red-600 font-sans flex items-center gap-1">
+    <p role="alert" className="error-editorial flex items-center gap-1">
       <span aria-hidden="true">⚠</span> {message}
     </p>
   );
@@ -28,7 +28,7 @@ function FieldError({ message }: { message?: string }) {
 
 function Label({ htmlFor, children, required }: { htmlFor: string; children: React.ReactNode; required?: boolean }) {
   return (
-    <label htmlFor={htmlFor} className="block font-sans text-sm font-medium text-brand-ink mb-1.5">
+    <label htmlFor={htmlFor} className="label-editorial">
       {children}
       {required && <span className="text-red-500 ml-1" aria-hidden="true">*</span>}
     </label>
@@ -36,7 +36,7 @@ function Label({ htmlFor, children, required }: { htmlFor: string; children: Rea
 }
 
 const inputClass =
-  "w-full px-4 py-3 border border-brand-border rounded-sm font-sans text-sm text-brand-ink bg-white focus:outline-none focus:ring-2 focus:ring-brand-navy focus:border-transparent transition-colors duration-200 placeholder:text-brand-muted/60";
+  "w-full font-sans text-sm text-brand-ink input-editorial";
 
 // Baked in at build time: true on GitHub Pages static export, false on Vercel
 const IS_STATIC = process.env.NEXT_PUBLIC_IS_STATIC_EXPORT === "true";
@@ -178,7 +178,7 @@ export function IntakeForm() {
               <div>
                 <Label htmlFor="personal_email">Personal Email <span className="text-brand-muted font-normal">(recommended)</span></Label>
                 <input id="personal_email" type="email" {...register("personal_email")} className={inputClass} placeholder="you@gmail.com" autoComplete="email" inputMode="email" />
-                <p className="mt-1 text-xs text-brand-muted font-sans">Recommended — government email filters may block confirmation messages.</p>
+                <p className="helper-editorial">Recommended — government email filters may block confirmation messages.</p>
                 <FieldError message={errors.personal_email?.message} />
               </div>
               <div>
@@ -218,7 +218,7 @@ export function IntakeForm() {
                   className={inputClass}
                   placeholder="Please briefly describe the situation — what happened, when it happened, and what outcome you are seeking. Do not include highly sensitive information at this stage."
                 />
-                <p className="mt-1 text-xs text-brand-muted font-sans">
+                <p className="helper-editorial">
                   Do not include Social Security numbers, medical diagnoses, or other highly sensitive details here.
                 </p>
                 <FieldError message={errors.case_description?.message} />
