@@ -7,7 +7,7 @@ export async function GET() {
   return NextResponse.json(
     {
       message: "POST to this endpoint to submit the intake form. Only available on the live site.",
-      liveUrl: "https://federal-eeo.com/contact",
+      liveUrl: "https://kirans0615.github.io/Federal-EEO-Web/contact/",
     },
     { status: 200 }
   );

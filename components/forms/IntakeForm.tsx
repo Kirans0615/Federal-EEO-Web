@@ -110,10 +110,10 @@ export function IntakeForm() {
               the production site.
             </p>
             <a
-              href="https://federal-eeo.com/contact"
+              href="https://kirans0615.github.io/Federal-EEO-Web/contact/"
               className="inline-flex items-center gap-1.5 font-sans text-xs font-medium text-brand-gold hover:underline"
             >
-              Submit at federal-eeo.com/contact
+              Go to the live site to submit
               <ArrowRight size={12} aria-hidden="true" />
             </a>
           </div>

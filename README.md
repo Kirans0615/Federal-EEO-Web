@@ -13,7 +13,7 @@
 
 | Deployment | URL | Purpose |
 |---|---|---|
-| **Production (Vercel)** | [federal-eeo.com](https://federal-eeo.com) | Live site — full server features, real form submissions |
+| **Production (Vercel)** | TBD — not yet deployed | Live site — full server features, real form submissions |
 | **Static Preview (GitHub Pages)** | [kirans0615.github.io/Federal-EEO-Web](https://kirans0615.github.io/Federal-EEO-Web/) | Permanent mirror — free hosting, stakeholder preview |
 
 ---
@@ -99,12 +99,13 @@ The static build sets `basePath: /Federal-EEO-Web`, `assetPrefix: /Federal-EEO-W
 
 ## Custom Domain (Future Step)
 
-The `CNAME` file in this repository contains `federal-eeo.com`. **Do not enable this CNAME until either:**
+A custom domain has not been configured. When a production domain is ready:
 
-- The production stack is fully migrated to GitHub Pages, **or**
-- The `federal-eeo.com` domain is intentionally pointed at the static mirror
+1. Add a `CNAME` file at the repo root containing the domain name
+2. Configure the domain in GitHub repository Settings → Pages (GitHub REST API or UI)
+3. Point the domain's DNS to GitHub Pages or Vercel as appropriate
 
-Activating the CNAME now would break Resend email delivery, Vercel Postgres lead capture, and the Cal.com embed, all of which require the Vercel server. Custom domains for GitHub Pages must also be configured through repository settings or the GitHub REST API — committing a `CNAME` file alone is not sufficient.
+Do not point a domain at GitHub Pages if the full server stack (Resend, Postgres, Cal.com) needs to be active — those features require a Vercel deployment.
 
 ---
 
@@ -156,7 +157,7 @@ All outstanding content items are tracked in [`CONTENT.md`](CONTENT.md). Critica
 
 **Ericka Guthrie Dorsey, Esq.**  
 Federal EEO, LLC · Washington, DC  
-[edorsey@federal-eeo.com](mailto:edorsey@federal-eeo.com) · [(301) 531-4322](tel:+13015314322)
+edorsey@federal-eeo.com · (301) 531-4322
 
 **Disclaimer:** The information on this website is for general informational purposes only and does not constitute legal advice. Viewing this site or submitting the intake form does not create an attorney-client relationship or guarantee representation.
 

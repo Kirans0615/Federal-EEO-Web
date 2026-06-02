@@ -28,11 +28,11 @@ export const metadata: Metadata = {
   },
   description:
     "Federal EEO, LLC provides expert federal employment law consulting — discrimination, retaliation, sexual harassment, and reasonable accommodation. Don't miss your 45-day deadline.",
-  metadataBase: new URL("https://federal-eeo.com"),
+  metadataBase: new URL("https://kirans0615.github.io/Federal-EEO-Web"),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://federal-eeo.com",
+    url: "https://kirans0615.github.io/Federal-EEO-Web",
     siteName: "Federal EEO, LLC",
     title: "Federal EEO, LLC — Consultants & Advocates",
     description:
