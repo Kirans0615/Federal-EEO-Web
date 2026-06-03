@@ -27,36 +27,51 @@
  *   linear-gradient(to bottom, rgba(27,42,74,0.78) 0%, rgba(27,42,74,0.42) 45%, rgba(27,42,74,0.92) 100%)
  */
 
+/**
+ * Prepend the GitHub Pages basePath to a public asset path.
+ * When NEXT_PUBLIC_IS_STATIC_EXPORT="true" (baked in at build time),
+ * returns "/Federal-EEO-Web/images/..."; otherwise returns the path unchanged.
+ *
+ * Use this for <picture> elements, CSS url(), og:image strings, or any
+ * context where next/image's custom loader is NOT applied automatically.
+ */
+export function getImagePath(src: string): string {
+  const base =
+    process.env.NEXT_PUBLIC_IS_STATIC_EXPORT === "true"
+      ? "/Federal-EEO-Web"
+      : "";
+  return `${base}${src}`;
+}
+
 export const images = {
   heroBackground: {
-    src:     "public/images/washington-overlook.jpg",
+    src:     "/images/washington-overlook.jpg",
     alt:     "Panoramic view of the Washington DC cityscape and National Mall at dusk, seen from an elevated overlook",
     blurKey: "washingtonOverlook" as const,
   },
   aboutHero: {
-    src:     "public/images/lincoln-memorial.jpg",
+    src:     "/images/lincoln-memorial.jpg",
     alt:     "Lincoln Memorial colonnade and marble steps, Washington DC",
     blurKey: "lincolnMemorial" as const,
   },
   servicesBackground: {
-    src:     "public/images/washington-bridge.jpg",
+    src:     "/images/washington-bridge.jpg",
     alt:     "Washington DC bridge spanning the Potomac River, reflecting federal architecture",
     blurKey: "washingtonBridge" as const,
   },
   missionBackground: {
-    src:     "public/images/washington-bridge.jpg",
+    src:     "/images/washington-bridge.jpg",
     alt:     "",
     blurKey: "washingtonBridge" as const,
-    // Rendered grayscale at 12% opacity with white/90 overlay
   },
   contactSidebar: {
-    src:     "public/images/washington-monument.jpg",
+    src:     "/images/washington-monument.jpg",
     alt:     "Washington Monument obelisk rising against the open sky, Washington DC",
     blurKey: "washingtonMonument" as const,
   },
   erickaHeadshot: {
-    src:      "public/images/ericka-dorsey.avif",
-    fallback: "public/images/ericka-dorsey.jpg",
+    src:      "/images/ericka-dorsey.avif",
+    fallback: "/images/ericka-dorsey.jpg",
     alt:      "Ericka Guthrie Dorsey, Esq., Founder and Principal Consultant of Federal EEO, LLC",
     width:    634,
     height:   792,

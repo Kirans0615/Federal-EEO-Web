@@ -23,6 +23,11 @@ const sourceSerif = Source_Serif_4({
   display: "swap",
 });
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_IS_STATIC_EXPORT === "true"
+    ? "https://kirans0615.github.io/Federal-EEO-Web"
+    : (process.env.NEXT_PUBLIC_SITE_URL ?? "https://kirans0615.github.io/Federal-EEO-Web");
+
 export const metadata: Metadata = {
   title: {
     default: "Federal EEO, LLC — Consultants & Advocates",
@@ -30,11 +35,11 @@ export const metadata: Metadata = {
   },
   description:
     "Federal EEO, LLC provides expert federal employment law consulting — discrimination, retaliation, sexual harassment, and reasonable accommodation. Don't miss your 45-day deadline.",
-  metadataBase: new URL("https://kirans0615.github.io/Federal-EEO-Web"),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://kirans0615.github.io/Federal-EEO-Web",
+    url: SITE_URL,
     siteName: "Federal EEO, LLC",
     title: "Federal EEO, LLC — Consultants & Advocates",
     description:

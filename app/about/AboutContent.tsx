@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 import { Scale, FileSearch, ShieldCheck, BarChart3 } from "lucide-react";
 import { EASE, staggerContainer, fadeUp } from "@/lib/motion";
 import { ConsultationCTA } from "@/components/sections/ConsultationCTA";
+import { getImagePath } from "@/lib/images";
 import blurData from "@/lib/blur-data.json";
 
 const CREDENTIALS_TIMELINE = [
@@ -49,18 +50,20 @@ function HeadshotReveal() {
           aria-hidden="true"
         />
         <div className="relative rounded-2xl overflow-hidden border-2 border-brand-gold/40">
-          <Image
-            src="/images/ericka-dorsey.avif"
-            alt="Ericka Guthrie Dorsey, Esq., Founder and Principal Consultant of Federal EEO, LLC"
-            width={634}
-            height={792}
-            className="object-cover object-top w-full"
-            sizes="(max-width: 768px) 100vw, 480px"
-            placeholder="blur"
-            blurDataURL={blurData.erickaHeadshot}
-            quality={90}
-            priority
-          />
+          {/* <picture> provides AVIF → JPEG fallback for GitHub Pages CDN compatibility */}
+          <picture>
+            <source srcSet={getImagePath("/images/ericka-dorsey.avif")} type="image/avif" />
+            <img
+              src={getImagePath("/images/ericka-dorsey.jpg")}
+              alt="Ericka Guthrie Dorsey, Esq., Founder and Principal Consultant of Federal EEO, LLC"
+              width={634}
+              height={792}
+              className="object-cover object-top w-full"
+              style={{ backgroundColor: "#D4C9B8", display: "block" }}
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
         </div>
       </div>
 

@@ -89,7 +89,7 @@ Every push to `main` triggers the GitHub Actions workflow at `.github/workflows/
 2. Uploads `./out/` as the Pages artifact
 3. Deploys to `github-pages` environment
 
-The static build sets `basePath: /Federal-EEO-Web`, `assetPrefix: /Federal-EEO-Web`, `trailingSlash: true`, and `images.unoptimized: true` for GitHub Pages compatibility.
+The static build sets `basePath: /Federal-EEO-Web`, `assetPrefix: /Federal-EEO-Web/`, `trailingSlash: true`, and a custom image loader (`lib/imageLoader.ts`) that prepends `/Federal-EEO-Web` to all image paths so they resolve correctly on the `kirans0615.github.io/Federal-EEO-Web` subpath.
 
 **Enable GitHub Pages manually** (one-time setup, cannot be automated):
 

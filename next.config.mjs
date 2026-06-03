@@ -7,7 +7,7 @@ const nextConfig = {
     output: "export",
     trailingSlash: true,
     basePath: "/Federal-EEO-Web",
-    assetPrefix: "/Federal-EEO-Web",
+    assetPrefix: "/Federal-EEO-Web/",
   }),
 
   images: {
@@ -17,8 +17,12 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
     ],
-    // next/image optimization requires a server; must be disabled for static export
-    ...(isGitHubPages && { unoptimized: true }),
+    // GitHub Pages static export: custom loader prepends /Federal-EEO-Web to
+    // every <Image> src. assetPrefix only covers _next/ bundles, not image paths.
+    ...(isGitHubPages && {
+      loader: "custom",
+      loaderFile: "./lib/imageLoader.ts",
+    }),
   },
 
   // Bake the deployment context into client bundles at build time
