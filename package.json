@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/generate-social.mjs",
     "build": "next build",
     "build:static": "GITHUB_PAGES=1 next build",
     "start": "next start",
     "lint": "next lint",
+    "social:generate": "node scripts/generate-social.mjs",
     "screenshots": "node scripts/screenshots.mjs"
   },
   "dependencies": {

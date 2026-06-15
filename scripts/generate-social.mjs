@@ -38,7 +38,7 @@ const tsSource = readFileSync(
   "utf8"
 );
 const blocks = [];
-const re = /\{[^{}]*?slug:\s*"([^"]+)"[\s\S]*?title:\s*"([^"]+)"[\s\S]*?description:\s*"([^"]+)"[\s\S]*?startISO:\s*"([^"]+)"[\s\S]*?endISO:\s*"([^"]+)"[\s\S]*?status:\s*"([^"]+)"[\s\S]*?\}/g;
+const re = /\{[^{}]*?slug:\s*"([^"]+)"[\s\S]*?title:\s*"([^"]+)"[\s\S]*?description:\s*"([^"]+)"[\s\S]*?startISO:\s*"([^"]+)"[\s\S]*?endISO:\s*"([^"]+)"[\s\S]*?audience:\s*"([^"]+)"[\s\S]*?status:\s*"([^"]+)"[\s\S]*?\}/g;
 let m;
 while ((m = re.exec(tsSource)) !== null) {
   blocks.push({
@@ -47,7 +47,8 @@ while ((m = re.exec(tsSource)) !== null) {
     description: m[3],
     startISO: m[4],
     endISO: m[5],
-    status: m[6],
+    audience: m[6] ?? "federal employees",
+    status: m[7],
   });
 }
 
@@ -269,7 +270,7 @@ I'm running a free webinar for federal employees on ${dateLabel(w.startISO)}.
 
 ${w.description}
 
-If you are ${w.audience.toLowerCase()}, this is for you. Free registration, recording sent afterward to everyone who signs up.
+If you are ${String(w.audience ?? "a federal employee").toLowerCase()}, this is for you. Free registration, recording sent afterward to everyone who signs up.
 
 Register: federal-eeo.com/webinars/${w.slug}
 
