@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Eye, ChevronDown, BookOpen, HelpCircle, ListChecks, Map as MapIcon, Video } from "lucide-react";
+import { Menu, X, ChevronDown, BookOpen, HelpCircle, ListChecks, Map as MapIcon, Video } from "lucide-react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -27,7 +27,6 @@ export function Navbar() {
   const pathname  = usePathname();
   const [open, setOpen]         = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [readMode, setReadMode] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
 
   useEffect(() => {
@@ -37,15 +36,6 @@ export function Navbar() {
   }, []);
 
   useEffect(() => { setOpen(false); }, [pathname]);
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-reading-mode", String(readMode));
-    if (readMode) {
-      document.documentElement.style.setProperty("--body-size", "1.125rem");
-    } else {
-      document.documentElement.style.removeProperty("--body-size");
-    }
-  }, [readMode]);
 
   /* Lock body scroll when mobile menu is open */
   useEffect(() => {
@@ -222,18 +212,6 @@ export function Navbar() {
               );
             })}
 
-            {/* Reading mode toggle */}
-            <button
-              aria-label={readMode ? "Disable reading mode" : "Enable reading mode"}
-              aria-pressed={readMode}
-              onClick={() => setReadMode(!readMode)}
-              className={`p-2 rounded-sm transition-colors duration-200 ${
-                readMode ? "bg-brand-gold/20 text-brand-gold" : "text-white/50 hover:text-white/80"
-              }`}
-            >
-              <Eye size={16} />
-            </button>
-
             <Link
               href="/contact"
               className="ml-1 px-5 py-2 bg-brand-gold text-white text-sm font-sans font-medium rounded-sm hover:bg-brand-gold/90 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
@@ -314,13 +292,6 @@ export function Navbar() {
                 >
                   Book Consultation
                 </Link>
-                <button
-                  onClick={() => setReadMode(!readMode)}
-                  className="flex items-center gap-2 text-white/50 text-sm font-sans py-1"
-                >
-                  <Eye size={15} />
-                  {readMode ? "Disable" : "Enable"} Reading Mode
-                </button>
               </motion.div>
             </nav>
 

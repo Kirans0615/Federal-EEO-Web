@@ -50,13 +50,6 @@
     --ring: oklch(0.556 0 0);
   }
 
-  /* ——— Reading Mode (high contrast, large type) ——— */
-  [data-reading-mode="true"] {
-    --rm-bg:   #1A1814;
-    --rm-text: #F4EFE6;
-    --rm-gold: #D4A84B;
-  }
-
   * {
     @apply border-border outline-ring/50;
   }
@@ -107,18 +100,6 @@
     outline-offset: 2px;
   }
 
-  /* Reading mode styles */
-  [data-reading-mode="true"] body {
-    background-color: var(--rm-bg) !important;
-    color: var(--rm-text) !important;
-    font-size: 1.125rem;
-    line-height: 1.85;
-  }
-  [data-reading-mode="true"] h1,
-  [data-reading-mode="true"] h2,
-  [data-reading-mode="true"] h3 {
-    color: var(--rm-text) !important;
-  }
 }
 
 @layer utilities {
