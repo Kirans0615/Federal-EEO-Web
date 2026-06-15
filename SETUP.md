@@ -1,254 +1,149 @@
 # Federal EEO, LLC — Setup Guide
 
-Complete setup guide for Kiran. Follow in order.
+End-to-end setup for the three integrations the site depends on after the
+Netlify Forms / Calendly / Zoom infrastructure swap. Everything else
+(deployment, image config, basePath for GitHub Pages) is already wired in
+the codebase.
 
 ---
 
-## 1. Fix npm Cache Permissions (Local Only)
+## 1. Netlify Forms
 
-Run once in your terminal:
-```bash
-sudo chown -R $(whoami) ~/.npm
-```
+The site ships three forms — Consultation Intake, Webinar Registration, and
+Resource Subscription. All three submit through Netlify Forms.
 
-Then install all dependencies:
-```bash
-cd federal-eeo-web
-npm install
-npm install framer-motion lucide-react react-hook-form zod @hookform/resolvers resend @react-email/components date-fns @vercel/analytics @vercel/postgres
-```
+### How Netlify Forms work with this site
 
----
+This is a Next.js static export. Netlify cannot detect React-rendered forms
+that only exist client-side, so we ship **two copies of every form**:
 
-## 2. Resend — Email Domain Verification
+1. The visible interactive form (in `/components/forms/*`).
+2. A hidden static schema form (in `/components/forms/NetlifyFormSchemas.tsx`)
+   mounted in `app/layout.tsx` and present on every page of the static export.
 
-Federal employees use government inboxes that aggressively filter unknown senders.
-Real DNS configuration is **required** before launch.
+Netlify's build bot reads the schema forms and provisions the dashboards.
 
-### 2a. Create Resend Account
-1. Go to https://resend.com and create a free account
-2. Click **Domains** → **Add Domain** → enter `federal-eeo.com`
-3. Resend will display 4 DNS records to add
+**Important:** Submissions only succeed when the site is *served* by Netlify
+(or proxied through `https://<your-site>.netlify.app/`). When this site is
+served from GitHub Pages, the form schema is still in the HTML, but POSTs to
+`/` return 405 because GitHub Pages does not run a Netlify endpoint. The
+interactive forms gracefully route the user to a confirmation screen anyway.
 
-### 2b. Add DNS Records (in your domain registrar)
+### Connecting Netlify
 
-| Type  | Name                          | Value                                  |
-|-------|-------------------------------|----------------------------------------|
-| TXT   | `@` or `federal-eeo.com`      | `v=spf1 include:_spf.resend.com ~all` |
-| CNAME | `resend._domainkey`           | (value Resend provides)                |
-| TXT   | `_dmarc`                      | `v=DMARC1; p=quarantine; rua=mailto:dmarc@federal-eeo.com; pct=100` |
-| MX    | Per Resend instructions       | Per Resend instructions                |
-
-> **SPF note:** If federal-eeo.com already has an SPF record, merge the include rather than adding a second TXT record.
-
-### 2c. Get API Key
-1. In Resend → **API Keys** → **Create API Key**
-2. Name it `federal-eeo-prod`
-3. Copy the key — you'll need it in step 5 (Vercel env vars)
-
-### 2d. Email Warmup Plan
-To avoid spam filters on government inboxes:
-- **Week 1:** Send 10-20 emails/day
-- **Week 2:** 50-100/day  
-- **Week 3+:** Normal volume
-- Never use subject line phrases: "free consultation," all-caps words, excessive "!"
+1. In Netlify, create a new site → "Import an existing project" → connect the
+   `Federal-EEO-Web` GitHub repo.
+2. Build command: `npm run build`. Publish directory: `out`.
+3. Environment variables — none required for forms.
+4. After the first deploy completes, Netlify automatically detects the three
+   forms. Check the **Forms** tab in the Netlify dashboard.
+5. Configure email notifications: Forms → `consultation-intake` → Form
+   notifications → Add notification → Email → `edorsey@federal-eeo.com`.
+   Repeat for `webinar-registration` and `resource-subscription`.
+6. To migrate the subscription list to an email platform later, export
+   `resource-subscription` submissions from Netlify and import into Mailchimp,
+   ConvertKit, Buttondown, or whatever Ericka chooses.
 
 ---
 
-## 3. Vercel Postgres — Lead Database
+## 2. Calendly
 
-### 3a. Create Database
-1. Go to https://vercel.com → your project → **Storage** tab
-2. Click **Create Database** → **Postgres**
-3. Name it `federal-eeo-leads`
-4. Click **Create**
+The `/book` page renders a Calendly inline embed when the URL is configured,
+or a polished email-and-phone fallback when it is still the placeholder.
 
-### 3b. Create the Leads Table
-In the Vercel Postgres query editor, run:
+### Setup steps (~10 minutes)
 
-```sql
-CREATE TABLE IF NOT EXISTS leads (
-  id              SERIAL PRIMARY KEY,
-  name            TEXT NOT NULL,
-  agency          TEXT NOT NULL,
-  work_email      TEXT NOT NULL,
-  personal_email  TEXT,
-  phone           TEXT NOT NULL,
-  case_stage      TEXT NOT NULL,
-  case_description TEXT NOT NULL,
-  contact_method  TEXT NOT NULL,
-  time_sensitive  BOOLEAN DEFAULT FALSE,
-  status          TEXT DEFAULT 'new',
-  created_at      TIMESTAMPTZ DEFAULT NOW()
-);
+1. Ericka creates a Calendly account at https://calendly.com.
+2. Calendly → Integrations → connect her Google Calendar.
+3. Create two event types:
+   - **Strategic Assessment** — 30 minutes.
+   - **Deep Case Review** — 60 minutes.
+4. Copy the *public event link* for the primary entry point. It will look
+   like `https://calendly.com/erickadorsey/strategic-assessment`.
+5. Open `/lib/constants.ts` and replace the `CALENDLY_CONSULTATION_URL`
+   placeholder string with the real link.
+6. Commit and push. The next deploy renders the live inline scheduler in
+   place of the fallback card.
 
-CREATE INDEX IF NOT EXISTS idx_leads_status ON leads(status);
-CREATE INDEX IF NOT EXISTS idx_leads_time_sensitive ON leads(time_sensitive) WHERE time_sensitive = TRUE;
-```
-
-### 3c. Get Connection String
-Vercel automatically injects `POSTGRES_URL` into your project when you link the database.
-In Vercel → your project → **Settings** → **Environment Variables**, confirm `POSTGRES_URL` is present.
+Calendly handles time-zone detection, confirmation emails, reminder emails,
+and rescheduling automatically.
 
 ---
 
-## 4. Cal.com — Scheduling
+## 3. Zoom Webinars
 
-### 4a. Create Account
-1. Go to https://cal.com and create a free account using `edorsey@federal-eeo.com`
-2. Set your username to `federal-eeo` (URL will be `cal.com/federal-eeo`)
+Each webinar in `/content/webinars.ts` registers attendees through Zoom's
+hosted registration page. Zoom handles the unique join links, the
+confirmation emails, and the 24-hour / 1-hour / 5-minute reminder cadence.
 
-### 4b. Connect Google Calendar
-1. **Settings** → **Calendars** → **Connect a new calendar** → Google
-2. Follow OAuth flow to connect Ericka's Google Calendar
-3. Set the connected calendar as both the availability source and event destination
+### Setup per webinar
 
-### 4c. Create Event Types
+1. In Zoom (Pro or Business with the webinar add-on), create a new webinar.
+2. Under **Registration**, choose "Required."
+3. Save. Zoom generates a Registration URL like
+   `https://zoom.us/webinar/register/<long-token>`.
+4. Open `/content/webinars.ts` and create an entry with:
+   - `slug` — URL-safe slug for the `/webinars/<slug>` page.
+   - `title`, `description`, `audience`, `learningObjectives` — content
+     copied from the marketing copy.
+   - `startISO` and `endISO` — ISO 8601 with timezone offset (e.g.,
+     `"2026-09-10T18:00:00-04:00"` for Eastern Daylight Time).
+   - `zoomRegistrationUrl` — paste the URL from step 3.
+   - `status: "upcoming"`.
+5. Commit and push. The new webinar appears at `/webinars` and at
+   `/webinars/<slug>` after the next deploy.
+6. The `prebuild` script regenerates social graphics under
+   `/public/social/<slug>/` automatically.
 
-**Event 1: Strategic Assessment (30 min)**
-- Name: `Strategic Assessment`
-- URL slug: `strategic-assessment`
-- Duration: 30 minutes
-- Locations: Google Meet (auto-generate link), Phone (Ericka calls), In-Person (DC office address)
-- Buffer: 15 min before AND after
-- Confirmation: Auto-send with Google Meet link embedded
-- Reminders: 24 hours before, 1 hour before — embed meeting link in both
+### After the live event
 
-**Event 2: Deep Case Review (60 min)**
-- Name: `Deep Case Review`
-- URL slug: `deep-case-review`
-- Duration: 60 minutes
-- Same locations, buffer, and reminder settings as above
-
-### 4d. Get Embed Code
-1. Event type page → **Embed** tab
-2. Copy the inline embed snippet
-3. In `/app/book/BookContent.tsx`, replace the placeholder `<div>` with the Cal.com embed
-4. Update `CAL_USERNAME` at the top of `BookContent.tsx` to `federal-eeo`
-
-### 4e. Update Scheduling Link
-In `/app/api/intake/route.ts`, set:
-```
-process.env.CAL_SCHEDULING_LINK = "https://cal.com/federal-eeo"
-```
+Flip the entry's `status` to `"recorded"` and fill `recordingUrl` with the
+Vimeo or unlisted YouTube link. The session moves from the Upcoming list to
+the Past Webinars list on `/webinars` automatically.
 
 ---
 
-## 5. Vercel Environment Variables
+## 4. Dual deployment — GitHub Pages and Netlify
 
-In Vercel → project → **Settings** → **Environment Variables**, add:
+The site builds in two modes:
 
-| Key                    | Value                            | Environment        |
-|------------------------|----------------------------------|--------------------|
-| `RESEND_API_KEY`       | re_xxxxxxxxxxxx (from step 2c)   | Production, Preview |
-| `CAL_SCHEDULING_LINK`  | https://cal.com/federal-eeo      | Production, Preview |
-| `POSTGRES_URL`         | Auto-injected by Vercel Postgres | All                |
+- **Default** (`npm run build`) — server-mode build. Works on Vercel or
+  Netlify with full SSR support. Use this when deploying to Netlify because
+  it activates the form-submission endpoint.
+- **Static export** (`npm run build:static`) — full HTML export with
+  `basePath: /Federal-EEO-Web` for GitHub Pages. The custom image loader
+  prepends the basePath to every `next/image` src. Output lands in `/out`.
+
+The GitHub Actions workflow runs `build:static` and publishes `out/` to the
+`gh-pages` branch.
 
 ---
 
-## 6. Deploy to Vercel
+## 5. Build-time social graphic generation
+
+`scripts/generate-social.mjs` runs in the `prebuild` script. It reads
+`/content/webinars.ts`, parses the entries, and emits four PNGs plus a
+copy.md per webinar under `/public/social/<slug>/`. The script depends on
+`satori` and `sharp` (both in `package.json`); it skips silently if either
+is missing.
+
+---
+
+## 6. Local screenshots
+
+`scripts/screenshots.mjs` uses Playwright (a devDependency) to capture
+desktop 1920 × 1200 and mobile 390 × 844 PNGs of every key route. Output
+lands in `/public/screenshots/` — gitignored.
 
 ```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# From project directory
-cd federal-eeo-web
-vercel --prod
+npm run dev          # in one terminal
+npm run screenshots  # in another
 ```
 
-Or connect the GitHub repo to Vercel for automatic deployments on push.
-
-**Custom domain:**
-1. Vercel → project → **Domains** → Add `federal-eeo.com` and `www.federal-eeo.com`
-2. Update DNS A/CNAME records at your registrar to point to Vercel
-
 ---
 
-## 7. Post-Launch Checklist
+## Pre-launch checklist
 
-- [ ] Submit `federal-eeo.com` to Google Search Console
-- [ ] Verify DMARC reports are arriving at `dmarc@federal-eeo.com`
-- [ ] Send a test form submission and confirm all 4 actions fire (DB write, lead confirmation, Ericka notification, Cal.com redirect)
-- [ ] Test scheduling on mobile
-- [ ] Check email deliverability to a `.gov` address using mail-tester.com
-
----
-
-## 8. New Environment Variables (Visual Upgrade)
-
-No new environment variables introduced by the visual upgrade. All image assets are self-hosted in `/public/images/`.
-
-## 9. Reading Mode
-
-Reading mode is a client-side toggle in the navbar (eye icon). It sets `data-reading-mode="true"` on the `<html>` element, which activates CSS overrides in `globals.css`:
-- Near-black background (`#1A1814`)
-- Cream text (`#F4EFE6`)
-- Larger base type (18px), relaxed line height (1.85)
-No env vars needed. No server configuration required.
-
-## 10. Image Optimization Notes
-
-- All 5 DC images are stored in `/public/images/` and served via Next.js Image with AVIF+WebP auto-conversion
-- Blur placeholders pre-generated in `lib/blur-data.json` using plaiceholder + sharp
-- `next.config.mjs` configured for srcsets at 640, 1080, 1920, 2560 widths
-- Ericka's headshot is AVIF (already optimized at 36KB); all others are high-res JPEGs
-
----
-
-## 11. Dual Deployment — Vercel + GitHub Pages
-
-### 11a. Environment Variables Reference
-
-#### Vercel Dashboard (set under Settings → Environment Variables)
-
-| Key | Environment | Purpose |
-|-----|-------------|---------|
-| `RESEND_API_KEY` | Production, Preview | Resend transactional email — from §2c |
-| `CAL_SCHEDULING_LINK` | Production, Preview | Cal.com booking URL (already set in vercel.json env block) |
-| `POSTGRES_URL` | All | Auto-injected when you link the Vercel Postgres database — from §3c |
-
-**Never put these values in `vercel.json` or commit them to the repository.**
-
-#### GitHub Repository Secrets
-
-**None required.** The GitHub Actions workflows only need `GITHUB_TOKEN`, which GitHub provides automatically with the minimum required permissions (`contents: read`, `pages: write`, `id-token: write`).
-
-If you add Vercel preview deployments via GitHub integration in the future, those env vars are set in the Vercel dashboard per-environment — not in GitHub Secrets.
-
-### 11b. Enable GitHub Pages (manual step — cannot be automated)
-
-1. Go to your repository on GitHub
-2. Click **Settings** → **Code and automation** → **Pages**
-3. Under **Build and deployment**, set Source to: **GitHub Actions**
-4. Click Save
-5. Push a commit to `main` — the workflow will run and deploy automatically
-
-After the first successful run, the site will be live at:
-`https://kirans0615.github.io/Federal-EEO-Web/`
-
-### 11c. GitHub Pages Environment Protection
-
-GitHub automatically creates a `github-pages` environment when the first deployment runs. To add a deployment protection rule:
-1. Repository **Settings** → **Environments** → **github-pages**
-2. Under **Deployment protection rules**, enable **Required reviewers** or at minimum confirm that **Deployment branches** is set to `main` only
-
-### 11d. Static Build Behavior
-
-When `GITHUB_PAGES=1` is set (automatically by the workflow):
-- `output: 'export'` is enabled → produces static HTML in `./out/`
-- `trailingSlash: true` → GitHub Pages path compatibility
-- `basePath: /Federal-EEO-Web` → correct asset URLs under the repo path
-- `images.unoptimized: true` → bypasses Next.js Image CDN (no server available)
-- `NEXT_PUBLIC_IS_STATIC_EXPORT=true` → baked into client bundles at build time
-  - The intake form renders but shows a "live site only" notice instead of submitting
-  - The submit button is disabled
-
-API routes (`/api/intake`) are excluded from the static export. Only the GET handler is included as a static JSON file.
-
-### 11e. Vercel Deployment (Production)
-
-None of the static export options apply on Vercel (`GITHUB_PAGES` is not set). The site runs as a full Next.js server:
-- All API routes active
-- `next/image` optimization (AVIF + WebP, CDN-served)
-- Resend + Postgres + Cal.com all fully operational
+See **CONTENT.md → Pre-Launch Checklist** for the full content-side review
+list (articles, FAQ, glossary, process map, placeholder business content,
+social graphics, integration setup).

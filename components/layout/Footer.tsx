@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SubscribeForm } from "@/components/forms/SubscribeForm";
 
 const DISCLAIMER =
   "Consultations are for strategic guidance and case assessment based on the information available at the time of the meeting. Booking a consultation with Federal EEO, LLC does not create an attorney-client relationship or guarantee representation.";
@@ -34,6 +35,7 @@ export function Footer() {
                 ["About",     "/about"],
                 ["Services",  "/services"],
                 ["Resources", "/resources"],
+                ["Webinars",  "/webinars"],
                 ["Contact",   "/contact"],
                 ["Brand",     "/brand"],
               ].map(([label, href]) => (
@@ -65,6 +67,23 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Newsletter signup */}
+        <div className="border-t border-white/10 pt-8 pb-8 mb-2">
+          <div className="grid md:grid-cols-[1fr_1.4fr] gap-6 items-start">
+            <div>
+              <h3 className="text-white font-serif text-lg mb-1">
+                The next guide, in your inbox.
+              </h3>
+              <p className="font-sans text-xs text-white/55 leading-relaxed max-w-xs">
+                One short email when a new resource or webinar goes live. No spam.
+              </p>
+            </div>
+            <div>
+              <SubscribeForm source="footer" buttonLabel="Subscribe" />
+            </div>
           </div>
         </div>
 

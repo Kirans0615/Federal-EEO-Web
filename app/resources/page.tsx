@@ -1,72 +1,202 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { DeadlineTimeline } from "@/components/ui/DeadlineTimeline";
+import {
+  BookOpen,
+  ScrollText,
+  Compass,
+  ArrowRight,
+  Clock,
+  ListChecks,
+  HelpCircle,
+  Map as MapIcon,
+  Video,
+} from "lucide-react";
+import { ARTICLES, readingMinutes } from "@/content/articles";
+import { SubscribeForm } from "@/components/forms/SubscribeForm";
 
 export const metadata: Metadata = {
-  title: "Resources",
-  description: "Federal EEO resources — guides on deadlines, the ROI process, and reasonable accommodation for federal employees.",
+  title: "Resources — A working library for federal employees",
+  description:
+    "Drafted guides, glossary, FAQ, and process map for the federal EEO complaint process. Free, plain-language, written by Ericka G. Dorsey, Esq.",
 };
 
-export default function ResourcesPage() {
+const CATEGORIES = [
+  {
+    icon: BookOpen,
+    title: "Process Guides",
+    body: "The federal EEO complaint process end to end — deadlines, decision points, and the language to use at each stage.",
+    href: "#process-guides",
+  },
+  {
+    icon: ScrollText,
+    title: "Rights Explainers",
+    body: "Title VII, the Rehabilitation Act, and the related statutes — what each one actually requires of your agency.",
+    href: "#rights-explainers",
+  },
+  {
+    icon: Compass,
+    title: "Strategic Frameworks",
+    body: "Reading your ROI, preparing for a hearing, and the moments where the strategic decision matters most.",
+    href: "#strategic-frameworks",
+  },
+];
+
+const TOOLS = [
+  {
+    icon: ListChecks,
+    title: "Glossary",
+    body: "36 federal EEO terms, plain-English. Bookmark before you read the ROI.",
+    href: "/resources/glossary/",
+  },
+  {
+    icon: HelpCircle,
+    title: "Frequently asked",
+    body: "The questions federal employees actually search for. Searchable answers.",
+    href: "/resources/faq/",
+  },
+  {
+    icon: MapIcon,
+    title: "Process Map",
+    body: "The entire federal EEO process as a scrollable map — from the 45-day clock to the OFO appeal.",
+    href: "/resources/process/",
+  },
+  {
+    icon: Video,
+    title: "Webinars",
+    body: "Live sessions and recordings. Free for federal employees.",
+    href: "/webinars/",
+  },
+];
+
+function ArticleCard({ slug }: { slug: string }) {
+  const article = ARTICLES.find((a) => a.slug === slug);
+  if (!article) return null;
   return (
-    <>
-      <section className="bg-brand-navy pt-32 pb-20 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto">
-          <p className="eyebrow mb-4">Resources</p>
-          <h1 className="font-serif text-white text-balance" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", letterSpacing: "-0.02em" }}>
-            Knowledge That Protects Federal Employees
-          </h1>
+    <Link
+      href={`/resources/${article.slug}/`}
+      className="group block bg-white border border-brand-border rounded-sm p-7 hover:border-brand-gold/40 hover:shadow-sm transition-all"
+    >
+      <p className="font-sans text-brand-gold text-xs tracking-[0.2em] uppercase mb-3">
+        {article.section.replace(/-/g, " ")}
+      </p>
+      <h3 className="font-serif text-xl text-brand-navy leading-snug mb-3 group-hover:text-brand-gold transition-colors text-balance">
+        {article.title}
+      </h3>
+      <p className="font-sans text-sm text-brand-muted leading-relaxed mb-5">
+        {article.dek}
+      </p>
+      <div className="flex items-center justify-between pt-4 border-t border-brand-border/50">
+        <span className="inline-flex items-center gap-1 font-sans text-xs text-brand-muted">
+          <Clock size={12} aria-hidden="true" />
+          {readingMinutes(article)} min read
+        </span>
+        <span className="inline-flex items-center gap-1 font-sans text-sm font-medium text-brand-gold">
+          Read <ArrowRight size={14} aria-hidden="true" />
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+export default function ResourcesIndex() {
+  return (
+    <div className="bg-brand-cream pt-32 pb-24">
+      <section className="max-w-7xl mx-auto px-6 md:px-12 mb-16">
+        <p className="font-sans text-brand-gold text-xs tracking-[0.2em] uppercase mb-4">
+          Resources
+        </p>
+        <h1 className="font-serif text-display-lg text-brand-navy text-balance max-w-3xl leading-[1.05]">
+          A working library for federal employees.
+        </h1>
+        <p className="font-sans text-brand-muted mt-5 max-w-2xl text-base md:text-lg leading-relaxed">
+          Most federal EEO cases are won or lost before anyone steps into a
+          hearing room. The deadlines, the documentation, the strategy — these
+          are the things we wish every federal employee knew before they needed
+          to. Bookmark this page.
+        </p>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-6 md:px-12 mb-20">
+        <div className="grid md:grid-cols-3 gap-5">
+          {CATEGORIES.map((c) => {
+            const Icon = c.icon;
+            return (
+              <a
+                key={c.title}
+                href={c.href}
+                className="group block bg-white border border-brand-border rounded-sm p-8 hover:border-brand-gold/40 hover:shadow-sm transition-all"
+              >
+                <Icon size={22} className="text-brand-gold mb-5" aria-hidden="true" />
+                <h2 className="font-serif text-2xl text-brand-navy mb-3">{c.title}</h2>
+                <p className="font-sans text-sm text-brand-muted leading-relaxed mb-5">
+                  {c.body}
+                </p>
+                <span className="inline-flex items-center gap-1 font-sans text-sm font-medium text-brand-gold">
+                  Browse <ArrowRight size={14} aria-hidden="true" />
+                </span>
+              </a>
+            );
+          })}
         </div>
       </section>
 
-      {/* Interactive deadline timeline */}
-      <section className="bg-[#FAF8F3] section-padding">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <p className="eyebrow mb-3">Know Your Deadlines</p>
-          <h2 className="font-serif text-brand-navy mb-8 text-balance" style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)" }}>
-            The 5 Critical Federal EEO Deadlines
-          </h2>
-          <DeadlineTimeline />
-        </div>
-      </section>
-
-      {/* Guides grid */}
-      <section className="bg-white section-padding">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <p className="eyebrow mb-3">Guides &amp; Downloads</p>
-          <h2 className="font-serif text-brand-navy mb-8 text-balance" style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)" }}>
-            EEO Process Guides
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {[
-              { title: "The 45-Day Rule Explained",                      type: "Guide",  status: "Coming Soon" },
-              { title: "Understanding Your Report of Investigation",      type: "Guide",  status: "Coming Soon" },
-              { title: "Requesting Reasonable Accommodation",             type: "Guide",  status: "Coming Soon" },
-              { title: "From Informal Counseling to Formal Complaint",   type: "Guide",  status: "Coming Soon" },
-              { title: "Protecting Yourself From Retaliation",           type: "Guide",  status: "Coming Soon" },
-              { title: "EEO Hearing Basics",                             type: "Guide",  status: "Coming Soon" },
-            ].map((r) => (
-              <div key={r.title} className="border border-brand-border rounded-sm p-6 bg-[#FAF8F3] flex flex-col gap-3">
-                <span className="eyebrow">{r.type}</span>
-                <h3 className="font-serif text-brand-navy text-lg leading-snug">{r.title}</h3>
-                <span className="font-sans text-xs text-brand-muted italic mt-auto">{r.status}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="border-t border-brand-border pt-10 text-center">
-            <p className="font-sans text-brand-muted text-sm mb-6 max-w-md mx-auto">
-              The fastest path to the right answer is a direct conversation about your situation.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-brand-navy text-white font-sans text-sm font-medium hover:bg-brand-navy/90 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 rounded-sm"
+      {(["process-guides", "rights-explainers", "strategic-frameworks"] as const).map(
+        (section) => {
+          const items = ARTICLES.filter((a) => a.section === section);
+          if (items.length === 0) return null;
+          return (
+            <section
+              key={section}
+              id={section}
+              className="max-w-7xl mx-auto px-6 md:px-12 mb-16 scroll-mt-24"
             >
-              Book a Consultation
-            </Link>
-          </div>
+              <h2 className="font-serif text-2xl text-brand-navy mb-7 capitalize">
+                {section.replace(/-/g, " ")}
+              </h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {items.map((a) => (
+                  <ArticleCard key={a.slug} slug={a.slug} />
+                ))}
+              </div>
+            </section>
+          );
+        }
+      )}
+
+      <section className="max-w-7xl mx-auto px-6 md:px-12 mb-20">
+        <h2 className="font-serif text-2xl text-brand-navy mb-7">Reference and tools</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {TOOLS.map((t) => {
+            const Icon = t.icon;
+            return (
+              <Link
+                key={t.title}
+                href={t.href}
+                className="group block bg-white border border-brand-border rounded-sm p-6 hover:border-brand-gold/40 hover:shadow-sm transition-all"
+              >
+                <Icon size={20} className="text-brand-gold mb-4" aria-hidden="true" />
+                <h3 className="font-serif text-lg text-brand-navy mb-2">{t.title}</h3>
+                <p className="font-sans text-sm text-brand-muted leading-relaxed">{t.body}</p>
+              </Link>
+            );
+          })}
         </div>
       </section>
-    </>
+
+      <section className="max-w-3xl mx-auto px-6 md:px-12">
+        <div className="bg-white border border-brand-border rounded-sm p-8 md:p-10 text-center">
+          <p className="font-sans text-brand-gold text-xs tracking-[0.2em] uppercase mb-3">
+            Stay in the loop
+          </p>
+          <h2 className="font-serif text-2xl md:text-3xl text-brand-navy mb-3 text-balance">
+            The next resource, directly to your inbox.
+          </h2>
+          <p className="font-sans text-sm text-brand-muted leading-relaxed mb-6 max-w-md mx-auto">
+            New guides and webinar invitations. No spam, no overload. Unsubscribe any time.
+          </p>
+          <SubscribeForm source="resources-page" className="max-w-md mx-auto" />
+        </div>
+      </section>
+    </div>
   );
 }

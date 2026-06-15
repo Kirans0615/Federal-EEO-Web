@@ -5,6 +5,8 @@ import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
 import { LoadingBar } from "@/components/ui/LoadingBar";
+import { NetlifyFormSchemas } from "@/components/forms/NetlifyFormSchemas";
+import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import { Inter, Source_Serif_4 } from "next/font/google";
 import { cn } from "@/lib/utils";
 
@@ -69,6 +71,8 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+        <OrganizationJsonLd />
+        <NetlifyFormSchemas />
         <CursorSpotlight />
         <LoadingBar />
         <ScrollProgress />

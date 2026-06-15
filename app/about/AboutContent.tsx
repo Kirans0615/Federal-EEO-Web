@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 import { Scale, FileSearch, ShieldCheck, BarChart3 } from "lucide-react";
 import { EASE, staggerContainer, fadeUp } from "@/lib/motion";
 import { ConsultationCTA } from "@/components/sections/ConsultationCTA";
+import { RecentWins } from "@/components/sections/RecentWins";
 import { getImagePath } from "@/lib/images";
 import blurData from "@/lib/blur-data.json";
 
@@ -297,6 +298,7 @@ export function AboutContent() {
         </div>
       </section>
 
+      <RecentWins />
       <ConsultationCTA />
     </>
   );

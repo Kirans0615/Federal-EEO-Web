@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Eye } from "lucide-react";
+import { Menu, X, Eye, ChevronDown, BookOpen, HelpCircle, ListChecks, Map as MapIcon, Video } from "lucide-react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -15,11 +15,20 @@ const links = [
   { href: "/contact",   label: "Contact" },
 ];
 
+const RESOURCES_MENU = [
+  { href: "/resources/",             icon: BookOpen,    label: "Articles",     desc: "Flagship guides — 45-day clock, ROI, accommodation." },
+  { href: "/resources/faq/",         icon: HelpCircle,  label: "FAQ",          desc: "Searchable answers to the most common questions." },
+  { href: "/resources/glossary/",    icon: ListChecks,  label: "Glossary",     desc: "36 federal EEO terms in plain English." },
+  { href: "/resources/process/",     icon: MapIcon,     label: "Process Map",  desc: "The complete process, end to end, scroll-by-stage." },
+  { href: "/webinars/",              icon: Video,       label: "Webinars",     desc: "Live sessions and recordings, free." },
+];
+
 export function Navbar() {
   const pathname  = usePathname();
   const [open, setOpen]         = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [readMode, setReadMode] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 32);
@@ -121,6 +130,68 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-8">
             {links.map((l) => {
               const isActive = pathname.startsWith(l.href);
+              const isResources = l.href === "/resources";
+              if (isResources) {
+                return (
+                  <div
+                    key={l.href}
+                    className="relative"
+                    onMouseEnter={() => setResourcesOpen(true)}
+                    onMouseLeave={() => setResourcesOpen(false)}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setResourcesOpen((v) => !v)}
+                      aria-expanded={resourcesOpen}
+                      aria-haspopup="menu"
+                      className="relative inline-flex items-center gap-1 font-sans text-sm tracking-wide transition-colors duration-200 group"
+                      style={{ color: isActive ? "#C4922A" : "rgba(255,255,255,0.8)" }}
+                    >
+                      {l.label}
+                      <ChevronDown
+                        size={13}
+                        aria-hidden="true"
+                        className={`transition-transform ${resourcesOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    <AnimatePresence>
+                      {resourcesOpen && (
+                        <motion.div
+                          role="menu"
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 6 }}
+                          transition={{ duration: 0.18 }}
+                          className="absolute right-0 top-full mt-3 w-[420px] bg-white border border-brand-border rounded-sm shadow-xl p-3"
+                          style={{ color: "#1B2A4A" }}
+                        >
+                          {RESOURCES_MENU.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                              <Link
+                                key={item.href}
+                                href={item.href}
+                                role="menuitem"
+                                className="flex items-start gap-3 p-3 rounded-sm hover:bg-brand-cream transition-colors"
+                              >
+                                <Icon size={16} className="text-brand-gold shrink-0 mt-1" aria-hidden="true" />
+                                <div>
+                                  <p className="font-sans text-sm font-semibold text-brand-navy">
+                                    {item.label}
+                                  </p>
+                                  <p className="font-sans text-xs text-brand-muted leading-snug">
+                                    {item.desc}
+                                  </p>
+                                </div>
+                              </Link>
+                            );
+                          })}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
               return (
                 <Link
                   key={l.href}

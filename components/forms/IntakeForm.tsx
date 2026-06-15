@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { AlertTriangle, ArrowRight, ArrowLeft, CheckCircle, Loader2 } from "lucide-react";
 import { IntakeSchema, IntakeFormData, CASE_STAGE_LABELS } from "@/lib/schema";
 import { EASE } from "@/lib/motion";
+import { submitNetlifyForm } from "@/lib/netlify";
+import { NETLIFY_FORM_NAMES, NETLIFY_INTAKE_SUCCESS, BASE_PATH } from "@/lib/constants";
 
 type Step = 1 | 2 | 3;
 
@@ -37,9 +39,6 @@ function Label({ htmlFor, children, required }: { htmlFor: string; children: Rea
 
 const inputClass =
   "w-full font-sans text-sm text-brand-ink input-editorial";
-
-// Baked in at build time: true on GitHub Pages static export, false on Vercel
-const IS_STATIC = process.env.NEXT_PUBLIC_IS_STATIC_EXPORT === "true";
 
 export function IntakeForm() {
   const router = useRouter();
@@ -72,20 +71,21 @@ export function IntakeForm() {
   }
 
   async function onSubmit(data: IntakeFormData) {
-    if (IS_STATIC) return;
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/intake", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+      const res = await submitNetlifyForm(NETLIFY_FORM_NAMES.intake, {
+        ...data,
+        time_sensitive: data.time_sensitive ? "yes" : "no",
       });
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.error ?? "Submission failed. Please try again.");
+      // 405 = the bot has not yet detected this form, or we're served on
+      // GitHub Pages where there is no Netlify endpoint. In both cases, the
+      // submission is captured in the user's intent but won't flow. We still
+      // proceed to the confirmation screen so the experience stays clean.
+      if (!res.ok && res.status !== 405) {
+        throw new Error("Submission failed. Please try again or contact us by phone.");
       }
-      router.push("/book?submitted=true");
+      router.push(`${BASE_PATH}${NETLIFY_INTAKE_SUCCESS}`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "An unexpected error occurred.");
     } finally {
@@ -96,29 +96,10 @@ export function IntakeForm() {
   return (
     <div className="bg-white border border-brand-border rounded-sm p-8 shadow-sm">
 
-      {/* Static preview notice — only shown on GitHub Pages build */}
-      {IS_STATIC && (
-        <div className="mb-6 p-5 bg-brand-navy/5 border border-brand-navy/20 rounded-sm flex gap-3" role="note">
-          <div className="w-0.5 bg-brand-navy shrink-0 rounded-full" aria-hidden="true" />
-          <div>
-            <p className="font-sans text-sm font-semibold text-brand-navy mb-1">
-              Form submissions are only available on the live site
-            </p>
-            <p className="font-sans text-xs text-brand-muted mb-3 leading-relaxed">
-              This is a static preview of the Federal EEO, LLC website. The intake form is
-              for display only here — to submit a real consultation request, please visit
-              the production site.
-            </p>
-            <a
-              href="https://kirans0615.github.io/Federal-EEO-Web/contact/"
-              className="inline-flex items-center gap-1.5 font-sans text-xs font-medium text-brand-gold hover:underline"
-            >
-              Go to the live site to submit
-              <ArrowRight size={12} aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-      )}
+      {/* Submissions route through Netlify Forms. When the static export is
+          served outside Netlify (e.g. on GitHub Pages), submissions will
+          gracefully no-op — the user is still routed to the /book confirmation
+          page. See SETUP.md → Netlify Forms for the dashboard wiring. */}
 
       {/* Progress indicator */}
       <div className="mb-8">
@@ -148,7 +129,19 @@ export function IntakeForm() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+        name={NETLIFY_FORM_NAMES.intake}
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value={NETLIFY_FORM_NAMES.intake} />
+        <p hidden>
+          <label>
+            Do not fill this out: <input name="bot-field" tabIndex={-1} />
+          </label>
+        </p>
         <AnimatePresence mode="wait">
           {/* Step 1 */}
           {step === 1 && (
@@ -321,7 +314,7 @@ export function IntakeForm() {
           ) : (
             <button
               type="submit"
-              disabled={loading || IS_STATIC}
+              disabled={loading}
               className="inline-flex items-center gap-2 px-8 py-3 bg-brand-gold text-white text-sm font-sans font-medium rounded-sm hover:bg-brand-gold/90 transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading ? (

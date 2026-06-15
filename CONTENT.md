@@ -1,165 +1,124 @@
-# Federal EEO, LLC — Content Review Checklist
+# Federal EEO, LLC — Content & Pre-Launch Checklist
 
-**All visual assets in place as of 2026-06-02. No outstanding image blockers.**
-
-Everything in this file needs Ericka Guthrie Dorsey's review before launch.
-Mark each item ✅ when complete.
+Single source of truth for everything Ericka needs to review, replace, or
+approve before the site goes public.
 
 ---
 
-## PRIORITY 1 — Legal & Identity (Blockers)
+## Pre-Launch Review Checklist
 
-- [ ] **Phone number** — Add to `/app/contact/page.tsx` (marked `[Phone — see CONTENT.md]`) and Footer
-- [ ] **Physical address** — Add full DC office address to Footer and contact page sidebar
-- ✅ **Professional headshot** — Real AVIF headshot in place at `/public/images/ericka-dorsey.avif` with JPEG fallback at `/public/images/ericka-dorsey.jpg`. Confirm Ericka approves this specific photo for commercial use.
-- [ ] **Attorney disclaimer language** — Confirm the verbatim disclaimer is correct and approved
-- [ ] **DC Bar number / license info** — Add to Footer or About page if desired for credibility
+### 1. Articles requiring legal review and approval
 
----
+All three flagship articles are drafted and live at the routes below. Each
+displays a "Draft pending review" banner until the `status` field in the
+article file is flipped from `"draft"` to `"published"`.
 
-## PRIORITY 2 — Pricing (Revenue Blocker)
-
-All service prices are currently marked `TBD` in `/app/services/ServicesContent.tsx`.
-
-- [ ] 30-Minute Strategic Assessment — set price
-- [ ] 60-Minute Deep Case Review — set price
-- [ ] Comprehensive Pre-Filing Strategy Session — set price
-- [ ] Individual Employee Training — set price
-- [ ] Union Local Training — set price
-- [ ] Agency Management Training — set price
-- [ ] Hourly Representation — set hourly rate
-- [ ] Flat-Fee ROI Representation — set flat fee
-
----
-
-## PRIORITY 3 — Testimonials (Legal Releases Required)
-
-Current testimonials in `/components/ui/testimonials-columns-1.tsx` are **realistic placeholders only**.
-
-Before launch, Ericka must:
-1. Obtain signed written releases from each client whose quote will appear
-2. Verify that no quote reveals confidential case details
-3. Replace each placeholder with the exact approved text, name, agency, and outcome
-
-The 6 placeholder testimonials cover:
-1. Timely complaint filed within 45-day window
-2. Won at administrative judge level after ROI review
-3. Reasonable accommodation granted after third request
-4. Settlement: position restoration + back pay (retaliation)
-5. Union local training outcome
-6. Complaint survived dismissal via continuing violation doctrine
-
----
-
-## PRIORITY 4 — Biography
-
-In `/app/about/AboutContent.tsx`:
-- [ ] Review and expand the biography paragraphs — current copy is professional but generalized
-- [ ] Add specific career highlights, prior employers, or notable positions if desired
-- [ ] Add any speaking engagements, publications, or awards
-- [ ] Confirm ABA Commission on Disability Rights role and correct title
-
----
-
-## PRIORITY 5 — FAQ Answers
-
-In `/components/sections/FAQ.tsx`:
-- [ ] Review all 7 FAQ answers for accuracy
-- [ ] Add any FAQs Ericka commonly answers in consultations
-- [ ] Consider adding: "Do you handle cases for SES employees?" and "What if my agency EEO office is unresponsive?"
-
----
-
-## PRIORITY 6 — Email Subject Lines
-
-In `/app/api/intake/route.ts`, the confirmation email subject is:
-> "Your Federal EEO Consultation Request — Next Steps"
-
-- [ ] Approve or revise this subject line
-- [ ] Approve the confirmation email body copy
-- [ ] Confirm `noreply@federal-eeo.com` is the correct From address
-
----
-
-## PRIORITY 7 — Resources Page
-
-All 6 guide cards in `/app/resources/page.tsx` are placeholders marked "Coming Soon."
-
-For launch, Ericka should provide:
-- [ ] At minimum one completed guide (recommend: "The 45-Day Rule Explained" — highest traffic intent)
-- [ ] PDF download files to place in `/public/guides/`
-
-### Featured Resources Section (Homepage)
-
-Three editorial article cards appear on the homepage via `/components/sections/FeaturedResources.tsx`.
-**All three titles and excerpts are placeholder copy pending Ericka's review:**
-
-| # | Placeholder Title | Placeholder Excerpt |
+| Article | Route | File |
 |---|---|---|
-| 1 | "The 45-Day Clock: What Federal Employees Must Know" | About the critical deadline, when it starts, and what counts as "contact" with an EEO counselor. |
-| 2 | "Reasonable Accommodation: Your Rights Under the Rehabilitation Act" | About what agencies are required to do, what employees can request, and how to document denials. |
-| 3 | "Reading Your Report of Investigation: A Strategic Guide" | About what the ROI contains, what a weak agency case looks like, and how to use it in a hearing. |
+| The 45-Day Clock: A Federal Employee's First Move | `/resources/the-45-day-clock` | `content/articles/the-45-day-clock.ts` |
+| Reasonable Accommodation: What Federal Agencies Actually Owe You | `/resources/reasonable-accommodation` | `content/articles/reasonable-accommodation.ts` |
+| Reading Your ROI: A Strategic Framework | `/resources/reading-your-roi` | `content/articles/reading-your-roi.ts` |
 
-Before launch:
-- [ ] Ericka reviews and approves or revises all three titles
-- [ ] Ericka reviews and approves or revises all three excerpt paragraphs
-- [ ] Confirm these articles will be published on the Resources page (or update links accordingly)
+To approve an article: edit the file, change `status: "draft"` to
+`status: "published"`, commit, push. The banner disappears.
 
----
+### 2. FAQ answers requiring legal review
 
-## PRIORITY 8 — Cal.com Event Details
+`content/faq.ts` — 15 question/answer pairs. Each entry has a `draftPending`
+flag. Flip to `false` per entry as reviewed.
 
-- [ ] Confirm Cal.com username (`federal-eeo` is the placeholder)
-- [ ] Set DC office address for in-person meeting location
-- [ ] Approve confirmation and reminder email copy sent by Cal.com
-- [ ] Confirm 15-minute buffer before/after is sufficient
+The 15 questions: filing deadline · need lawyer · EEO vs MSPB · retaliation
+protected · what is ROI · process timeline · what can I recover · settle or
+hearing · rude supervisor · request accommodation · mixed case · federal
+contractor · missed 45-day · info protection · cost to hire.
 
----
+### 3. Glossary definitions requiring legal review
 
-## Optional Enhancements (Post-Launch)
+`content/glossary.ts` — 36 federal EEO terms. Same `draftPending` flag per
+term.
 
-- Blog/articles section (Resources page is ready to receive content)
-- Client portal for document sharing
-- Spanish-language intake form
-- Intake form field for "How did you hear about us?"
+### 4. Process Map content requiring legal review
 
----
+`content/process.ts` — 9 stages from Discriminatory Event through OFO Appeal.
+Each has content for: what happens, what you should do, typical timeline,
+common mistakes, and how Federal EEO helps. Same `draftPending` flag per
+stage.
 
-## Visual QA — Review Before Launch
+### 5. Placeholder business content awaiting real data
 
-Screenshots saved to `/public/screenshots/`. Review all at desktop and mobile.
-
-### Images — Status
-
-All five photographs fetched from the GitHub repository and live in `/public/images/` with normalized filenames:
-
-| File | Role | Status |
+| Item | Where it lives | What is needed |
 |---|---|---|
-| `ericka-dorsey.avif` + `ericka-dorsey.jpg` | Attorney headshot — About page | ✅ In place |
-| `washington-overlook.jpg` | Homepage hero full-bleed | ✅ In place |
-| `lincoln-memorial.jpg` | About page hero + accordion | ✅ In place |
-| `washington-bridge.jpg` | Services hero + Mission background | ✅ In place |
-| `washington-monument.jpg` | Contact page sidebar vertical pan | ✅ In place |
+| Recent Wins | `components/sections/RecentWins.tsx` | 3–5 anonymized real outcomes (signed release or genuine anonymization). **Highest priority** — single biggest credibility delta. |
+| Press & Speaking entries | `app/about/press/page.tsx` | Real speaking engagements, professional service appointments, and media quotes. |
+| Calendly URL | `lib/constants.ts` → `CALENDLY_CONSULTATION_URL` | Real Calendly event-type link. See SETUP.md → Calendly. |
+| Zoom webinar registration URLs | `content/webinars.ts` → `zoomRegistrationUrl` per entry | Real Zoom registration URL per webinar. See SETUP.md → Zoom. |
+| Firm LinkedIn URL | `lib/constants.ts` → `FIRM.linkedinUrl` | Once a firm LinkedIn page exists, replace placeholder. Surfaces in Organization JSON-LD. |
+| Service pricing | `app/services/*` | Pricing for consultation tiers, if Ericka wants prices public. |
 
-### Photography Usage Rights (still required)
-All 5 images were provided by Ericka via the GitHub repo. Before launch, confirm:
-- [ ] Ericka owns or has a valid commercial license for each of the four DC scenic photographs
-- [ ] The headshot may be used commercially on the firm's website
-- [ ] Usage rights permit reproduction in screenshots, OG images, and social media previews
+### 6. Social media graphics templates
 
-See `/public/images/CREDITS.md` for the full record.
+Auto-generated at build time by `scripts/generate-social.mjs` from
+`content/webinars.ts`. Per webinar:
 
-### Copy That Must Change Before Launch
-See PRIORITY sections above. Critical blockers:
-1. All service prices (TBD throughout)
-2. Phone number (placeholder in contact page)
-3. Physical DC office address (in Footer and Contact sidebar)
-4. Real testimonials with signed releases
-5. Confirm photography usage rights (checklist above)
+```
+/public/social/<slug>/og.png         1200 × 630
+/public/social/<slug>/linkedin.png   1200 × 627
+/public/social/<slug>/instagram.png  1080 × 1080
+/public/social/<slug>/story.png      1080 × 1920
+/public/social/<slug>/copy.md        drafted post copy
+```
 
-### Cal.com Appearance Settings
-After setup, configure Cal.com appearance to match brand:
-- Primary color: `#1B2A4A` (brand navy)
-- Accent color: `#C4922A` (brand gold)
-- Background: `#FAF8F3` (brand cream)
-- Font: Inter (if available)
+Ericka can save the PNGs from the deployed site and lightly edit the drafted
+LinkedIn / Instagram / story copy before posting.
+
+### 7. Email integration setup
+
+- **Netlify Forms dashboard** — verify Ericka has access once the Netlify
+  project is connected. See SETUP.md → Netlify Forms.
+- **Future email platform** — when one is chosen (Mailchimp, ConvertKit,
+  Buttondown), export the `resource-subscription` list from Netlify and
+  import.
+
+### 8. Calendly setup steps
+
+1. Create Calendly account.
+2. Connect Google Calendar.
+3. Create event types: "Strategic Assessment" (30 min), "Deep Case Review"
+   (60 min).
+4. Copy the primary event-type public link.
+5. Paste into `lib/constants.ts` → `CALENDLY_CONSULTATION_URL`.
+6. Commit and push.
+
+Full walkthrough in SETUP.md → Calendly.
+
+### 9. Zoom setup steps per webinar
+
+1. Create webinar in Zoom with "Require registration" enabled.
+2. Copy the registration URL.
+3. Add an entry to `content/webinars.ts` with all fields filled.
+4. Commit and push.
+
+Full walkthrough in SETUP.md → Zoom.
+
+---
+
+## Content tone reference
+
+The drafts follow Ericka's established voice: direct, authoritative, no
+hedging, plain English over legalisms. Where a legal citation is helpful
+(29 CFR § 1614.105(a)(1), the Rehabilitation Act, Title VII), it is cited
+inline. Where a federal employee should call counsel, that is stated
+directly.
+
+If a passage feels tonally off, keep the substance and rewrite in Ericka's
+natural cadence.
+
+---
+
+## After the first real win
+
+Replace the placeholder Recent Wins with the real outcome. The shift from
+"placeholder" to "Federal employee at the VA — full reinstatement, restored
+seniority, settlement on terms our client wanted, 8 months" is the single
+biggest credibility delta the site will ever see. Do this first when you
+have your first releasable outcome.
