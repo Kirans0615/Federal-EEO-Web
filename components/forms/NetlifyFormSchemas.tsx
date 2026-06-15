@@ -33,7 +33,7 @@ export function NetlifyFormSchemas() {
   return (
     <div hidden aria-hidden="true" style={{ display: "none" }}>
       {/* 1. Consultation intake — mirrors components/forms/IntakeForm.tsx */}
-      <form name={NETLIFY_FORM_NAMES.intake} data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <form name={NETLIFY_FORM_NAMES.intake} data-netlify="true" data-netlify-honeypot="bot-field" hidden>
         <input type="text" name="bot-field" />
         <input type="text" name="form-name" />
         <input type="text" name="name" />
@@ -48,7 +48,7 @@ export function NetlifyFormSchemas() {
       </form>
 
       {/* 2. Resource subscription — single-field email capture */}
-      <form name={NETLIFY_FORM_NAMES.resourceSubscription} data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <form name={NETLIFY_FORM_NAMES.resourceSubscription} data-netlify="true" data-netlify-honeypot="bot-field" hidden>
         <input type="text" name="bot-field" />
         <input type="text" name="form-name" />
         <input type="email" name="email" />
@@ -56,7 +56,7 @@ export function NetlifyFormSchemas() {
       </form>
 
       {/* 3. Webinar registration — duplicated to Netlify alongside Zoom submit */}
-      <form name={NETLIFY_FORM_NAMES.webinarRegistration} data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <form name={NETLIFY_FORM_NAMES.webinarRegistration} data-netlify="true" data-netlify-honeypot="bot-field" hidden>
         <input type="text" name="bot-field" />
         <input type="text" name="form-name" />
         <input type="text" name="webinar_slug" />

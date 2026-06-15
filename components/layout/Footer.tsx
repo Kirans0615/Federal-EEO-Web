@@ -37,7 +37,6 @@ export function Footer() {
                 ["Resources", "/resources"],
                 ["Webinars",  "/webinars"],
                 ["Contact",   "/contact"],
-                ["Brand",     "/brand"],
               ].map(([label, href]) => (
                 <li key={href}>
                   <Link href={href} className="hover:text-brand-gold transition-colors duration-200">

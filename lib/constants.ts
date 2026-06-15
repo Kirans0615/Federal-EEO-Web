@@ -68,11 +68,21 @@ export const NETLIFY_INTAKE_SUCCESS = "/book/?submitted=true";
 export const NETLIFY_SUBSCRIBE_SUCCESS = "/resources/?subscribed=true";
 
 /* ─── Site URL ──────────────────────────────────────────────────────── */
+/**
+ * Canonical site URL.
+ *
+ * Production hosting is Netlify (federal-eeo.netlify.app). The GitHub Pages
+ * mirror is preserved by the dual-build, but the canonical URL — used in
+ * Open Graph metadata, JSON-LD, and the sitemap — points at Netlify because
+ * that is where the live forms work and where users land.
+ *
+ * Override locally with NEXT_PUBLIC_SITE_URL for a preview deploy.
+ */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_IS_STATIC_EXPORT === "true"
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.NEXT_PUBLIC_IS_STATIC_EXPORT === "true"
     ? "https://kirans0615.github.io/Federal-EEO-Web"
-    : process.env.NEXT_PUBLIC_SITE_URL ??
-      "https://kirans0615.github.io/Federal-EEO-Web";
+    : "https://federal-eeo.netlify.app");
 
 export const BASE_PATH =
   process.env.NEXT_PUBLIC_IS_STATIC_EXPORT === "true"
