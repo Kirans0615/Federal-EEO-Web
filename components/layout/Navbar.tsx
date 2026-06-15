@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, BookOpen, HelpCircle, ListChecks, Map as MapIcon, Video } from "lucide-react";
+import { Menu, X, ChevronDown, BookOpen, HelpCircle, ListChecks, Map as MapIcon, Video, ArrowRight, Calendar } from "lucide-react";
+import { upcomingWebinars } from "@/content/webinars";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -20,8 +21,11 @@ const RESOURCES_MENU = [
   { href: "/resources/faq/",         icon: HelpCircle,  label: "FAQ",          desc: "Searchable answers to the most common questions." },
   { href: "/resources/glossary/",    icon: ListChecks,  label: "Glossary",     desc: "36 federal EEO terms in plain English." },
   { href: "/resources/process/",     icon: MapIcon,     label: "Process Map",  desc: "The complete process, end to end, scroll-by-stage." },
-  { href: "/webinars/",              icon: Video,       label: "Webinars",     desc: "Live sessions and recordings, free." },
 ];
+
+function formatDateShort(iso: string) {
+  return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
 
 export function Navbar() {
   const pathname  = usePathname();
@@ -152,30 +156,78 @@ export function Navbar() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 6 }}
                           transition={{ duration: 0.18 }}
-                          className="absolute right-0 top-full mt-3 w-[420px] bg-white border border-brand-border rounded-sm shadow-xl p-3"
+                          className="absolute right-0 top-full mt-3 w-[600px] bg-white border border-brand-border rounded-sm shadow-xl p-4"
                           style={{ color: "#1B2A4A" }}
                         >
-                          {RESOURCES_MENU.map((item) => {
-                            const Icon = item.icon;
+                          <div className="grid grid-cols-2 gap-1.5">
+                            {RESOURCES_MENU.map((item) => {
+                              const Icon = item.icon;
+                              return (
+                                <Link
+                                  key={item.href}
+                                  href={item.href}
+                                  role="menuitem"
+                                  className="flex items-start gap-3 p-3 rounded-sm hover:bg-brand-cream transition-colors"
+                                >
+                                  <Icon size={16} className="text-brand-gold shrink-0 mt-1" aria-hidden="true" />
+                                  <div>
+                                    <p className="font-sans text-sm font-semibold text-brand-navy">
+                                      {item.label}
+                                    </p>
+                                    <p className="font-sans text-xs text-brand-muted leading-snug">
+                                      {item.desc}
+                                    </p>
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                          {/* Featured webinar callout */}
+                          {(() => {
+                            const next = upcomingWebinars()[0];
                             return (
-                              <Link
-                                key={item.href}
-                                href={item.href}
-                                role="menuitem"
-                                className="flex items-start gap-3 p-3 rounded-sm hover:bg-brand-cream transition-colors"
-                              >
-                                <Icon size={16} className="text-brand-gold shrink-0 mt-1" aria-hidden="true" />
-                                <div>
-                                  <p className="font-sans text-sm font-semibold text-brand-navy">
-                                    {item.label}
-                                  </p>
-                                  <p className="font-sans text-xs text-brand-muted leading-snug">
-                                    {item.desc}
-                                  </p>
-                                </div>
-                              </Link>
+                              <div className="border-t border-brand-border mt-3 pt-3">
+                                {next ? (
+                                  <Link
+                                    href={`/webinars/${next.slug}/`}
+                                    role="menuitem"
+                                    className="flex items-center gap-4 p-3 rounded-sm hover:bg-brand-cream transition-colors"
+                                  >
+                                    <div className="flex items-center justify-center w-10 h-10 rounded-sm bg-brand-gold/15 shrink-0">
+                                      <Video size={18} className="text-brand-gold" aria-hidden="true" />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="font-sans text-brand-gold mb-0.5" style={{ fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 600 }}>
+                                        Upcoming Webinar
+                                      </p>
+                                      <p className="font-serif text-brand-navy truncate" style={{ fontSize: "0.95rem", fontWeight: 600 }}>
+                                        {next.title}
+                                      </p>
+                                      <p className="font-sans text-brand-muted mt-0.5 inline-flex items-center gap-1" style={{ fontSize: "0.72rem" }}>
+                                        <Calendar size={10} aria-hidden="true" />
+                                        {formatDateShort(next.startISO)}
+                                      </p>
+                                    </div>
+                                    <span className="inline-flex items-center gap-1 font-sans text-brand-gold text-sm font-medium shrink-0">
+                                      Register
+                                      <ArrowRight size={13} aria-hidden="true" />
+                                    </span>
+                                  </Link>
+                                ) : (
+                                  <Link
+                                    href="/webinars/"
+                                    role="menuitem"
+                                    className="flex items-center gap-3 p-3 rounded-sm hover:bg-brand-cream transition-colors"
+                                  >
+                                    <Video size={16} className="text-brand-gold" aria-hidden="true" />
+                                    <span className="font-sans text-sm font-semibold text-brand-navy">
+                                      Browse the webinar archive
+                                    </span>
+                                  </Link>
+                                )}
+                              </div>
                             );
-                          })}
+                          })()}
                         </motion.div>
                       )}
                     </AnimatePresence>

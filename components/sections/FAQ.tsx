@@ -29,7 +29,7 @@ const FAQS = [
   },
   {
     q: "Do you handle cases outside of Washington, DC?",
-    a: "Yes. Federal employees are located across the country and abroad. We provide consultations via Google Meet or phone and can represent clients in federal agency EEO processes and EEOC proceedings regardless of location.",
+    a: "Yes. Federal employees are located across the country and abroad. I conduct consultations via Google Meet or phone and represent clients in federal agency EEO processes and EEOC proceedings regardless of location.",
   },
   {
     q: "What types of discrimination do you handle?",

@@ -8,6 +8,8 @@ import { Scale, FileSearch, ShieldCheck, BarChart3 } from "lucide-react";
 import { EASE, staggerContainer, fadeUp } from "@/lib/motion";
 import { ConsultationCTA } from "@/components/sections/ConsultationCTA";
 import { RecentWins } from "@/components/sections/RecentWins";
+import { WhyIBuiltThis } from "@/components/sections/WhyIBuiltThis";
+import { SpeakingStrip } from "@/components/sections/SpeakingStrip";
 import { getImagePath } from "@/lib/images";
 import blurData from "@/lib/blur-data.json";
 
@@ -121,6 +123,9 @@ export function AboutContent() {
           </motion.div>
         </div>
       </section>
+
+      {/* First-person opener */}
+      <WhyIBuiltThis />
 
       {/* Biography */}
       <section className="bg-[#FAF8F3] section-padding">
@@ -299,6 +304,7 @@ export function AboutContent() {
       </section>
 
       <RecentWins />
+      <SpeakingStrip />
       <ConsultationCTA />
     </>
   );

@@ -24,7 +24,7 @@ const SERVICES: AccordionItem[] = [
     id:          "consultation",
     title:       "Strategic Consultation",
     subtitle:    "Case Assessment & Guidance",
-    description: "Before you file — or before you respond — you need to understand your legal position. We provide frank, experienced analysis of your claim, the applicable law, your agency's likely defenses, and the strategic path forward.",
+    description: "Before you file — or before you respond — you need to understand your legal position. I give you a frank, experienced analysis of your claim, the applicable law, your agency's likely defenses, and the strategic path forward.",
     imageUrl:    "/images/washington-overlook.jpg",
     imageAlt:    "Panoramic view of the Washington DC cityscape and National Mall at dusk",
     blurKey:     "washingtonOverlook",

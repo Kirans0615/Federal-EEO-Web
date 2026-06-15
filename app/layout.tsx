@@ -7,6 +7,8 @@ import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
 import { LoadingBar } from "@/components/ui/LoadingBar";
 import { NetlifyFormSchemas } from "@/components/forms/NetlifyFormSchemas";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
+import { PinnedWebinarBanner } from "@/components/layout/PinnedWebinarBanner";
+import { PersistentResourceFooter } from "@/components/layout/PersistentResourceFooter";
 import { Inter, Source_Serif_4 } from "next/font/google";
 import { cn } from "@/lib/utils";
 
@@ -76,8 +78,10 @@ export default function RootLayout({
         <CursorSpotlight />
         <LoadingBar />
         <ScrollProgress />
+        <PinnedWebinarBanner />
         <Navbar />
         <main id="main-content">{children}</main>
+        <PersistentResourceFooter />
         <Footer />
       </body>
     </html>
