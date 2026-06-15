@@ -1,26 +1,23 @@
 # Netlify build configuration for Federal EEO, LLC
 #
-# Netlify auto-detects the Next.js plugin, but pinning the build command and
-# publish directory here keeps the deploy deterministic. The form detection
-# bot scans the build output for <form data-netlify="true"> elements — those
-# are rendered into every page's HTML by components/forms/NetlifyFormSchemas.tsx
-# which is mounted in app/layout.tsx.
+# The site is built as a Next.js static export — no @netlify/plugin-nextjs
+# runtime, no SSR. The build produces a fully static `out/` directory that
+# Netlify serves directly. Form detection still works because the hidden
+# schema forms in components/forms/NetlifyFormSchemas.tsx are rendered into
+# every prerendered page.
 #
-# This is the live-site config. The GitHub Pages mirror is built separately
-# via .github/workflows/deploy-pages.yml using `npm run build:static`.
+# The GitHub Pages mirror is built separately via
+# .github/workflows/deploy-pages.yml with GITHUB_PAGES=1 to flip on basePath.
 
 [build]
   command = "npm run build"
-  publish = ".next"
+  publish = "out"
 
 [build.environment]
   NODE_VERSION = "20"
-  # Build runs with the server (non-static-export) target so Netlify's
-  # Next.js runtime serves SSR pages and the @netlify/plugin-nextjs
-  # picks up the form schemas in the prerendered HTML.
   NEXT_PUBLIC_SITE_URL = "https://federal-eeo.netlify.app"
 
-# Standard headers — cache static assets aggressively, keep HTML fresh
+# Cache static assets aggressively, keep HTML fresh
 [[headers]]
   for = "/_next/static/*"
   [headers.values]

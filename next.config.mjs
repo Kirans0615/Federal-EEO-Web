@@ -1,31 +1,40 @@
 const isGitHubPages = process.env.GITHUB_PAGES === "1";
 
-/** @type {import('next').NextConfig} */
+/**
+ * The site has no server-side features (no API routes, no middleware, no ISR),
+ * so we always build as a static export. That way the same build works on
+ * Netlify, GitHub Pages, or any plain static host — no @netlify/plugin-nextjs
+ * runtime, no Vercel-isms, no compatibility surprises.
+ *
+ * GITHUB_PAGES=1 toggles the basePath and assetPrefix for the GitHub Pages
+ * mirror at https://kirans0615.github.io/Federal-EEO-Web. Without it, the
+ * export targets a root-served host (Netlify default).
+ *
+ * Images use `unoptimized: true` because Next/Image's optimizer cannot run
+ * inside a static export. The repo's images are already pre-sized.
+ *
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
-  // Static export for GitHub Pages; omitted for Vercel (full server mode)
+  output: "export",
+  trailingSlash: true,
+
   ...(isGitHubPages && {
-    output: "export",
-    trailingSlash: true,
     basePath: "/Federal-EEO-Web",
     assetPrefix: "/Federal-EEO-Web/",
   }),
 
   images: {
-    formats: ["image/avif", "image/webp"],
-    deviceSizes: [640, 1080, 1920, 2560],
-    imageSizes: [320, 480, 640, 768],
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
     ],
-    // GitHub Pages static export: custom loader prepends /Federal-EEO-Web to
-    // every <Image> src. assetPrefix only covers _next/ bundles, not image paths.
     ...(isGitHubPages && {
       loader: "custom",
       loaderFile: "./lib/imageLoader.ts",
     }),
   },
 
-  // Bake the deployment context into client bundles at build time
   env: {
     NEXT_PUBLIC_IS_STATIC_EXPORT: isGitHubPages ? "true" : "false",
   },
