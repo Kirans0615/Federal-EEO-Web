@@ -10,8 +10,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "brand-navy":  "#1B2A4A",
-        "brand-gold":  "#C4922A",
+        "brand-navy":     "#1B2A4A",
+        "brand-gold":     "#C4922A",
+        /* AA-passing darker gold for body text on light surfaces (≥4.5:1
+           contrast on cream/white). Use this for eyebrow text and small
+           captions; keep #C4922A for icons, borders, CTAs, and any gold
+           on dark navy where #C4922A already passes contrast. */
+        "brand-gold-ink": "#8E681A",
         "brand-cream": "#F4EFE6",
         "brand-ink":   "#1C1C2E",
         "brand-muted": "#6B7280",

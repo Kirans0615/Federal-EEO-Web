@@ -60,7 +60,7 @@ export function PinnedWebinarBanner() {
             } catch {}
             setDismissed(true);
           }}
-          className="text-white/60 hover:text-white p-1 shrink-0"
+          className="text-white/60 hover:text-white p-2.5 -m-1 shrink-0"
         >
           <X size={14} />
         </button>

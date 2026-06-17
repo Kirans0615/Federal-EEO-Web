@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const TRUST_ITEMS = [
   "George Washington University Law School, JD",
@@ -14,6 +14,7 @@ const TRUST_ITEMS = [
  * Desktop: single line with gold dots. Mobile: slow continuous marquee.
  */
 export function TrustBar() {
+  const prefersReducedMotion = useReducedMotion();
   return (
     <aside
       aria-label="Credentials"
@@ -36,8 +37,8 @@ export function TrustBar() {
         <motion.div
           className="flex whitespace-nowrap gap-10 font-sans"
           style={{ fontSize: "0.7rem", letterSpacing: "0.12em", textTransform: "uppercase" }}
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+          animate={prefersReducedMotion ? undefined : { x: ["0%", "-50%"] }}
+          transition={prefersReducedMotion ? undefined : { duration: 28, repeat: Infinity, ease: "linear" }}
         >
           {[...TRUST_ITEMS, ...TRUST_ITEMS].map((item, i) => (
             <span key={i} className="flex items-center gap-10 shrink-0">

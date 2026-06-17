@@ -26,7 +26,7 @@ export function SocialProofStrip() {
   return (
     <section className="bg-[#FAF8F3] py-16 md:py-20 px-6 md:px-12 border-t border-brand-border/40">
       <div className="max-w-7xl mx-auto">
-        <p className="font-sans text-brand-gold mb-2 text-center" style={{ fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
+        <p className="font-sans text-brand-gold-ink mb-2 text-center" style={{ fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
           Federal Employees I&apos;ve Helped At
         </p>
         <p className="font-serif italic text-brand-muted text-center mb-12" style={{ fontSize: "0.95rem" }}>

@@ -3,7 +3,6 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
-import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
 import { LoadingBar } from "@/components/ui/LoadingBar";
 import { NetlifyFormSchemas } from "@/components/forms/NetlifyFormSchemas";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
@@ -75,7 +74,6 @@ export default function RootLayout({
         </a>
         <OrganizationJsonLd />
         <NetlifyFormSchemas />
-        <CursorSpotlight />
         <LoadingBar />
         <ScrollProgress />
         <PinnedWebinarBanner />

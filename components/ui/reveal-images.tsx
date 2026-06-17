@@ -22,11 +22,11 @@ const SERVICES: ServiceRow[] = [
     title: "Consultation",
     subtitle: "Case assessment & strategic guidance",
     href: "/services#consultation",
-    images: ["/images/consult2.jpg", "/images/washington-overlook.jpg"],
+    images: ["/images/consult2.jpg", "/images/pexels-karola-g-7681192.jpg"],
     blurKeys: ["washingtonOverlook", "lincolnMemorial"],
     alts: [
       "Federal EEO consultation, foreground",
-      "Panoramic view of the Washington DC National Mall at dusk",
+      "Federal EEO consultation, background",
     ],
   },
   {

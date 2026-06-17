@@ -27,7 +27,7 @@ export function WhyChooseMe() {
     <section className="bg-[#F4EFE2] py-20 md:py-28 px-6 md:px-12 border-y border-brand-border/40">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12 max-w-3xl">
-          <p className="font-sans text-brand-gold mb-3" style={{ fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
+          <p className="font-sans text-brand-gold-ink mb-3" style={{ fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
             The Difference
           </p>
           <h2 className="font-serif text-brand-navy" style={{ fontSize: "clamp(1.85rem, 3.4vw, 2.5rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}>

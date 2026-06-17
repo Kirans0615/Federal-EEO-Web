@@ -17,7 +17,7 @@ export function WhyIBuiltThis() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: EASE }}
-          className="font-sans text-brand-gold mb-5"
+          className="font-sans text-brand-gold-ink mb-5"
           style={{ fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}
         >
           A note from Ericka

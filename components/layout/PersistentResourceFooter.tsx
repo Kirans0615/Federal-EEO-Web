@@ -40,7 +40,7 @@ export function PersistentResourceFooter() {
         <div className="md:border-l md:border-brand-border md:pl-8">
           {next ? (
             <div>
-              <p className="font-sans text-brand-gold mb-2" style={{ fontSize: "0.68rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
+              <p className="font-sans text-brand-gold-ink mb-2" style={{ fontSize: "0.68rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
                 Next Free Webinar
               </p>
               <Link
@@ -62,7 +62,7 @@ export function PersistentResourceFooter() {
             </div>
           ) : (
             <div>
-              <p className="font-sans text-brand-gold mb-2" style={{ fontSize: "0.68rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
+              <p className="font-sans text-brand-gold-ink mb-2" style={{ fontSize: "0.68rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
                 Webinars
               </p>
               <Link href="/webinars/" className="group block">

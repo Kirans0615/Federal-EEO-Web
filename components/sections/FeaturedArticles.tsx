@@ -12,7 +12,7 @@ export function FeaturedArticles() {
     <section className="bg-[#FAF8F3] py-20 md:py-28 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12 max-w-3xl">
-          <p className="font-sans text-brand-gold mb-3" style={{ fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
+          <p className="font-sans text-brand-gold-ink mb-3" style={{ fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
             Recommended Reading
           </p>
           <h2 className="font-serif text-brand-navy" style={{ fontSize: "clamp(1.85rem, 3.4vw, 2.5rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
@@ -30,7 +30,7 @@ export function FeaturedArticles() {
               transition={{ duration: 0.55, delay: i * 0.12, ease: EASE }}
               className="bg-white border border-brand-border rounded-sm p-8 hover:border-brand-gold/50 hover:shadow-md transition-all flex flex-col"
             >
-              <p className="font-sans text-brand-gold mb-3" style={{ fontSize: "0.65rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
+              <p className="font-sans text-brand-gold-ink mb-3" style={{ fontSize: "0.65rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
                 Recommended Reading
               </p>
               <h3 className="font-serif text-brand-navy mb-3 text-balance" style={{ fontSize: "1.375rem", lineHeight: 1.25, fontWeight: 600 }}>

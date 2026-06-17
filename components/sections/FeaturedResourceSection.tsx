@@ -24,7 +24,7 @@ export function FeaturedResourceSection() {
     <section className="bg-[#FAF8F3] py-20 md:py-28 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12 max-w-3xl">
-          <p className="font-sans text-brand-gold mb-3" style={{ fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
+          <p className="font-sans text-brand-gold-ink mb-3" style={{ fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
             Free for federal employees
           </p>
           <h2 className="font-serif text-brand-navy" style={{ fontSize: "clamp(1.85rem, 3.4vw, 2.5rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
@@ -106,7 +106,7 @@ export function FeaturedResourceSection() {
             className="bg-[#F4EFE2] border border-brand-gold/30 rounded-sm p-9 md:p-10 flex flex-col"
           >
             <BookOpen size={28} className="text-brand-gold mb-5" aria-hidden="true" />
-            <p className="font-sans text-brand-gold mb-3" style={{ fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
+            <p className="font-sans text-brand-gold-ink mb-3" style={{ fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}>
               Free Resources
             </p>
             <h3 className="font-serif text-brand-navy mb-4" style={{ fontSize: "clamp(1.4rem, 2.4vw, 1.75rem)", lineHeight: 1.2, fontWeight: 500 }}>
