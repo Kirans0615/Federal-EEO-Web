@@ -33,7 +33,7 @@ const SERVICES: ServiceRow[] = [
     title: "Training",
     subtitle: "For employees, unions & agency management",
     href: "/services#training",
-    images: ["/images/training1.jpg", "/images/pexels-mikhail-nilov-9301245.jpg"],
+    images: ["/images/pexels-pavel-danilyuk-8761535.jpg", "/images/pexels-mikhail-nilov-9301245.jpg"],
     blurKeys: ["lincolnMemorial", "washingtonBridge"],
     alts: [
       "Federal EEO training session, foreground",
