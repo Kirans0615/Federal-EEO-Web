@@ -22,22 +22,22 @@ const SERVICES: ServiceRow[] = [
     title: "Consultation",
     subtitle: "Case assessment & strategic guidance",
     href: "/services#consultation",
-    images: ["/images/washington-overlook.jpg", "/images/lincoln-memorial.jpg"],
+    images: ["/images/consult2.jpg", "/images/washington-overlook.jpg"],
     blurKeys: ["washingtonOverlook", "lincolnMemorial"],
     alts: [
+      "Federal EEO consultation, foreground",
       "Panoramic view of the Washington DC National Mall at dusk",
-      "Lincoln Memorial colonnade and marble steps, Washington DC",
     ],
   },
   {
     title: "Training",
     subtitle: "For employees, unions & agency management",
     href: "/services#training",
-    images: ["/images/lincoln-memorial.jpg", "/images/washington-bridge.jpg"],
+    images: ["/images/training1.jpg", "/images/pexels-mikhail-nilov-9301245.jpg"],
     blurKeys: ["lincolnMemorial", "washingtonBridge"],
     alts: [
-      "Lincoln Memorial colonnade and marble steps, Washington DC",
-      "Washington DC bridge spanning the Potomac River",
+      "Federal EEO training session, foreground",
+      "Federal EEO training session, background",
     ],
   },
   {
