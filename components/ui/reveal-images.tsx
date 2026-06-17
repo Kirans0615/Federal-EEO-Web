@@ -44,11 +44,11 @@ const SERVICES: ServiceRow[] = [
     title: "Representation",
     subtitle: "ROI analysis through EEOC hearing advocacy",
     href: "/services#representation",
-    images: ["/images/washington-bridge.jpg", "/images/washington-monument.jpg"],
+    images: ["/images/pexels-august-de-richelieu-4427431.jpg", "/images/pexels-diva-plavalaguna-6146704.jpg"],
     blurKeys: ["washingtonBridge", "washingtonMonument"],
     alts: [
-      "Washington DC bridge spanning the Potomac River",
-      "Washington Monument obelisk rising against the open sky",
+      "Federal EEO representation, foreground",
+      "Federal EEO representation, background",
     ],
   },
 ];
